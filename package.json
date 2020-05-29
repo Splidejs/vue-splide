@@ -32,6 +32,7 @@
     "@babel/preset-env": "^7.10.1",
     "babel-loader": "^8.1.0",
     "gulp": "^4.0.2",
+    "serialize-javascript": "^3.1.0",
     "uglifyjs-webpack-plugin": "^2.2.0",
     "vue-loader": "^15.9.2",
     "vue-template-compiler": "^2.6.11",
