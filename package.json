@@ -1,0 +1,44 @@
+{
+  "name": "@splidejs/vue-splide",
+  "version": "0.1.5",
+  "description": "The Vue component for Splide.",
+  "author": "Naotoshi Fujita",
+  "license": "MIT",
+  "main": "src/js/index.js",
+  "module": "src/js/index.js",
+  "keywords": [
+    "splide",
+    "slider",
+    "carousel",
+    "slideshow",
+    "lightweight",
+    "touch",
+    "responsive",
+    "vue"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Splidejs/vue-splide.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Splidejs/vue-splide/issues"
+  },
+  "dependencies": {
+    "@splidejs/splide": "^2.3.5",
+    "vue": "^2.6.11"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.10.1",
+    "@babel/preset-env": "^7.10.1",
+    "babel-loader": "^8.1.0",
+    "gulp": "^4.0.2",
+    "uglifyjs-webpack-plugin": "^2.2.0",
+    "vue-loader": "^15.9.2",
+    "vue-template-compiler": "^2.6.11",
+    "webpack": "^4.43.0",
+    "webpack-stream": "^5.2.1"
+  },
+  "scripts": {
+    "build:js": "gulp build:js"
+  }
+}
