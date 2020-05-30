@@ -1,5 +1,7 @@
 # Vue Splide
 **Vue component for the [Splide](https://github.com/Splidejs/splide) slider library.**
+* [Document](https://splidejs.com/vue-splide/)
+* [Splide](https://github.com/Splidejs/splide)
 
 ## Installation
 Get the latest version by NPM:
