@@ -57,7 +57,6 @@
           fixedHeight : 70,
           cover       : true,
 		      focus       : 'center',
-		      trimSpace   : true,
 		      isNavigation: true,
           updateOnMove: true,
 	      },
