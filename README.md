@@ -1,4 +1,6 @@
 # Vue Splide
+![Vue Splide](images/hero.png)
+
 **[Vue](https://vuejs.org/) component for the [Splide](https://github.com/Splidejs/splide) slider library.**
 * [Document](https://splidejs.com/integration-vue-splide/)
 * [Splide](https://github.com/Splidejs/splide)
