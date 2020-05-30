@@ -47,22 +47,23 @@ import `@splidejs/splide/dist/css/themes/splide-skyblue.min.css`;
 ```
 
 ## Examples
-Here is a basic example:
+Here is a small example:
 ```javascript
 <template>
-  <splide
-    :options="options"
-    @splide:moved="moved"
-  >
-    <splide-slide v-for="slide in slides" :key="slide.src">
-      <img :src="slide.src">
+  <splide :options="options">
+    <splide-slide>
+      <img src="image1.jpg">
+    </splide-slide>
+    <splide-slide>
+      <img src="image2.jpg">
+    </splide-slide>
+    <splide-slide>
+      <img src="image3.jpg">
     </splide-slide>
   </splide>
 </template>
 
 <script>
-  const IMAGE_URL = 'https://source.unsplash.com/random/800x450';
-
   export default { 
     data() {
       return {
@@ -71,23 +72,7 @@ Here is a basic example:
           width  : 800,
           gap    : '1rem',
         },
-        slides: [],
       };
-    },
-
-    created() {
-      this.slides = Array.from( { length: 10 } ).map( ( value, index ) => {
-        return {
-          src: `${ IMAGE_URL }?sig=${ index }`,
-          alt: `Image ${ index }`,
-        };
-      } );
-    },
-
-    methods: {
-      moved( splide, newIndex ) {
-        console.log( 'moved', newIndex );
-      },
     },
   }
 </script>
