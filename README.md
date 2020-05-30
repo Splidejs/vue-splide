@@ -1,6 +1,6 @@
 # Vue Splide
 **Vue component for the [Splide](https://github.com/Splidejs/splide) slider library.**
-* [Document](https://splidejs.com/vue-splide/)
+* [Document](https://splidejs.com/integration-vue-splide/)
 * [Splide](https://github.com/Splidejs/splide)
 
 ## Installation
@@ -81,7 +81,7 @@ Here is a small example:
 ```
 More examples:
 * [Basic example](https://github.com/Splidejs/vue-splide/blob/master/src/js/examples/components/BasicExample.vue)
-* [Update slides by v-for reactivity](https://github.com/Splidejs/vue-splide/blob/master/src/js/examples/components/DynamicSlidesExample.vue)
+* [Dynamic slides](https://github.com/Splidejs/vue-splide/blob/master/src/js/examples/components/DynamicSlidesExample.vue)
 * [Thumbnails](https://github.com/Splidejs/vue-splide/blob/master/src/js/examples/components/ThumbnailsExample.vue)
 
 ## License
