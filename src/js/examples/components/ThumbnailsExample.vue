@@ -47,6 +47,7 @@
 		      perPage : 2,
           perMove : 1,
 		      gap     : '1rem',
+          autoplay: true,
 	      },
 	      secondaryOptions: {
 		      type        : 'slide',
