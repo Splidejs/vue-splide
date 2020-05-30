@@ -1,5 +1,5 @@
 # Vue Splide
-This is a Vue component for the [Splide](https://github.com/Splidejs/splide) slider library.
+**Vue component for the [Splide](https://github.com/Splidejs/splide) slider library.**
 
 ## Installation
 Get the latest version by NPM:
@@ -97,6 +97,6 @@ More examples:
 * [Update slides by v-for reactivity](https://github.com/Splidejs/vue-splide/blob/master/src/js/examples/components/DynamicSlidesExample.vue)
 * [Thumbnails](https://github.com/Splidejs/vue-splide/blob/master/src/js/examples/components/ThumbnailsExample.vue)
 
-### License
+## License
 Vue Splide and Splide are released under the MIT license.  
 © 2020 Naotoshi Fujita
