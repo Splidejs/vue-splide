@@ -41,11 +41,11 @@ export default {
 ### CSS
 Import [styles](https://splidejs.com/themes/) if you need.
 ```javascript
-import `@splidejs/splide/dist/css/themes/splide-default.min.css`;
+import '@splidejs/splide/dist/css/themes/splide-default.min.css';
 // or
-import `@splidejs/splide/dist/css/themes/splide-sea-green.min.css`;
+import '@splidejs/splide/dist/css/themes/splide-sea-green.min.css';
 // or
-import `@splidejs/splide/dist/css/themes/splide-skyblue.min.css`;
+import '@splidejs/splide/dist/css/themes/splide-skyblue.min.css';
 ```
 
 ## Examples
