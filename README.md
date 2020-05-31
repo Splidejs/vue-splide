@@ -20,7 +20,7 @@ $ npm install @splidejs/vue-splide
 
 ## Registration
 ### Global Registration
-Import vue-splide and install into Vue:
+Import `vue-splide` and install into Vue:
 ```javascript
 import Vue from 'vue';
 import App from './App';
