@@ -58,7 +58,7 @@ import '@splidejs/splide/dist/css/themes/splide-skyblue.min.css';
 ```
 
 ## Options
-The `Splide` component accepts options as an object:
+The `Splide` component accepts [options](https://splidejs.com/options/) as an object:
 ```javascript
 <splide :options="yourOptions"></splide>
 ```
