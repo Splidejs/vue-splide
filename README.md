@@ -35,7 +35,7 @@ new Vue( {
 ```
 
 ### Local Registration
-Import Splide and SplideSlide components:
+Import `Splide` and `SplideSlide` components:
 ```javascript
 import { Splide, SplideSlide } from '@splidejs/vue-splide';
 
