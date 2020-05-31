@@ -8,7 +8,7 @@
 </p>
 
 # Vue Splide
-**[Vue](https://vuejs.org/) component for the [Splide](https://github.com/Splidejs/splide) slider library.**
+**Vue Splide is the [Splide](https://github.com/Splidejs/splide) component for [Vue](https://vuejs.org/).**
 * [Document](https://splidejs.com/integration-vue-splide/)
 * [Splide](https://github.com/Splidejs/splide)
 
