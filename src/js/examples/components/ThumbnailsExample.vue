@@ -5,15 +5,8 @@
       ref="primary"
     >
       <splide-slide v-for="slide in slides" :key="slide.src">
-        <img :src="slide.src">
+        <img :src="slide.src" alt="slide.alt">
       </splide-slide>
-
-      <template v-slot:controls>
-        <div class="splide__progress">
-          <div class="splide__progress__bar">
-          </div>
-        </div>
-      </template>
     </splide>
 
     <splide
@@ -21,7 +14,7 @@
       ref="secondary"
     >
       <splide-slide v-for="slide in slides" :key="slide.src">
-        <img :src="slide.src">
+        <img :src="slide.src" alt="slide.alt">
       </splide-slide>
     </splide>
   </div>
@@ -30,8 +23,7 @@
 <script>
   import Splide from '../../components/Splide';
   import SplideSlide from '../../components/SplideSlide';
-
-  const IMAGE_URL = 'https://source.unsplash.com/random/800x600';
+  import { createSlides } from '../../utils/slides';
 
   export default {
   	components: {
@@ -47,7 +39,6 @@
 		      perPage : 2,
           perMove : 1,
 		      gap     : '1rem',
-          autoplay: true,
 	      },
 	      secondaryOptions: {
 		      type        : 'slide',
@@ -61,18 +52,9 @@
 		      isNavigation: true,
           updateOnMove: true,
 	      },
-	      slides: [],
+	      slides: createSlides(),
 	      count : 0,
       }
-    },
-
-    created() {
-  		this.slides = Array.from( { length: 10 } ).map( ( value, index ) => {
-			  return {
-				  src: `${ IMAGE_URL }?sig=${ index }`,
-				  alt: `Image ${ index }`,
-			  };
-		  } );
     },
 
     mounted() {

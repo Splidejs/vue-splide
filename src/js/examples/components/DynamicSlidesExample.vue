@@ -1,20 +1,21 @@
 <template>
-  <div>
+  <div class="wrapper">
     <splide :options="options" :slides="slides">
       <splide-slide v-for="slide in slides" :key="slide.src">
-        <img :src="slide.src">
+        <img :src="slide.src" alt="slide.alt">
       </splide-slide>
     </splide>
 
-    <button @click="add">Add Image</button>
+    <div class="controls">
+      <button @click="add">Add Image</button>
+    </div>
   </div>
 </template>
 
 <script>
 	import Splide from '../../components/Splide';
 	import SplideSlide from '../../components/SplideSlide';
-
-	const IMAGE_URL = 'https://source.unsplash.com/random/800x450';
+	import { createSlides } from "../../utils/slides";
 
 	export default {
 		components: {
@@ -30,31 +31,42 @@
 					perPage: 3,
 					gap    : '1rem',
 				},
-				slides: [],
+				slides: createSlides( 2 ),
 				count : 0,
 			};
 		},
 
-		created() {
-			this.slides = Array.from( { length: 2 } ).map( ( value, index ) => {
-				return {
-					src: `${ IMAGE_URL }?sig=${ index }`,
-					alt: `Image ${ index }`,
-				};
-			} );
-		},
-
 		methods: {
 			add() {
-				const index = this.count + 100;
-
-				this.slides.push( {
-					src: `${ IMAGE_URL }?sig=${ index }`,
-					alt: `Image ${ index }`,
-				} );
-
-				++this.count;
+				this.slides = this.slides.concat( createSlides( 1, ++this.count + 100 ) );
 			},
 		},
 	}
 </script>
+
+<style scoped lang="scss">
+  $color: #20b2aa;
+
+  .wrapper {
+    max-width: calc( 800px + 6em );
+  }
+
+  .controls {
+    text-align: center;
+
+    button {
+      border: none;
+      background: $color;
+      color: white;
+      cursor: pointer;
+      padding: .3em 1em;
+      border-radius: 2em;
+      outline: none;
+      transition: background-color .2s linear;
+
+      &:hover {
+        background: darken( $color, 20% );
+      }
+    }
+  }
+</style>

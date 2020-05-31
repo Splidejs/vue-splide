@@ -4,7 +4,7 @@
     @splide:moved="moved"
   >
     <splide-slide v-for="slide in slides" :key="slide.src">
-      <img :src="slide.src">
+      <img :src="slide.src" alt="slide.alt">
     </splide-slide>
   </splide>
 </template>
@@ -12,8 +12,7 @@
 <script>
   import Splide from '../../components/Splide';
   import SplideSlide from '../../components/SplideSlide';
-
-  const IMAGE_URL = 'https://source.unsplash.com/random/800x450';
+  import { createSlides } from "../../utils/slides";
 
   export default {
   	components: {
@@ -26,21 +25,11 @@
 			  options: {
 			  	rewind : true,
 				  width  : 800,
-				  perPage: 1,
 				  gap    : '1rem',
 			  },
-			  slides: [],
+			  slides: createSlides(),
 		  };
 	  },
-
-    created() {
-  		this.slides = Array.from( { length: 10 } ).map( ( value, index ) => {
-			  return {
-				  src: `${ IMAGE_URL }?sig=${ index }`,
-				  alt: `Image ${ index }`,
-			  };
-		  } );
-    },
 
 	  methods: {
 		  moved( splide, newIndex ) {
