@@ -23,8 +23,6 @@
 				default: () => ( {} ),
 			},
 			slides: Array,
-
-      primary: Object,
 		},
 
     data() {
