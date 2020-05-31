@@ -9,7 +9,9 @@ import Vue from 'vue';
 import Examples from './examples/Examples';
 import '@splidejs/splide/dist/css/themes/splide-sea-green.min.css';
 
-new Vue( {
-	el    : '#app',
-	render: h => h( Examples ),
+document.addEventListener( 'DOMContentLoaded', () => {
+	new Vue( {
+		el    : '#app',
+		render: h => h( Examples ),
+	} );
 } );

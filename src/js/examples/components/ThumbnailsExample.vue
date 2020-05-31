@@ -34,17 +34,19 @@
     data() {
       return {
 	      primaryOptions: {
-	      	type    : 'loop',
-		      width   : 800,
-		      perPage : 2,
-          perMove : 1,
-		      gap     : '1rem',
+		      type      : 'loop',
+		      width     : 800,
+		      perPage   : 2,
+		      perMove   : 1,
+		      gap       : '1rem',
+		      pagination: false,
 	      },
 	      secondaryOptions: {
 		      type        : 'slide',
 		      rewind      : true,
 		      width       : 800,
 		      gap         : '1rem',
+		      pagination  : false,
 		      fixedWidth  : 110,
           fixedHeight : 70,
           cover       : true,
