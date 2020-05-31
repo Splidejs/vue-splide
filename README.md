@@ -1,5 +1,7 @@
 # Vue Splide
-![Vue Splide](images/hero.png)
+<p class="center">
+    <img src="images/hero.png" style="max-width: 300px">
+</p>
 
 **[Vue](https://vuejs.org/) component for the [Splide](https://github.com/Splidejs/splide) slider library.**
 * [Document](https://splidejs.com/integration-vue-splide/)
@@ -83,8 +85,9 @@ Here is a small example:
 ```
 More examples:
 * [Basic example](https://github.com/Splidejs/vue-splide/blob/master/src/js/examples/components/BasicExample.vue)
-* [Dynamic slides](https://github.com/Splidejs/vue-splide/blob/master/src/js/examples/components/DynamicSlidesExample.vue)
+* [Autoplay](https://github.com/Splidejs/vue-splide/blob/master/src/js/examples/components/AutoplayExample.vue)
 * [Thumbnails](https://github.com/Splidejs/vue-splide/blob/master/src/js/examples/components/ThumbnailsExample.vue)
+* [Dynamic slides](https://github.com/Splidejs/vue-splide/blob/master/src/js/examples/components/DynamicSlidesExample.vue)
 
 ## License
 Vue Splide and Splide are released under the MIT license.  
