@@ -1,8 +1,13 @@
-# Vue Splide
-<p class="center">
-    <img src="images/hero.png" style="max-width: 300px">
+<p align="center">
+    <a href="https://splidejs.com" target="_blank">
+        <img width="120px" src="images/splide-logo.png">
+    </a>
+    <a href="https://vuejs.org/" target="_blank">
+        <img width="120px" src="images/vue-logo.png">
+    </a>
 </p>
 
+# Vue Splide
 **[Vue](https://vuejs.org/) component for the [Splide](https://github.com/Splidejs/splide) slider library.**
 * [Document](https://splidejs.com/integration-vue-splide/)
 * [Splide](https://github.com/Splidejs/splide)
