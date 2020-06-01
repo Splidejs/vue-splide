@@ -1,10 +1,11 @@
 $color: #20b2aa;
+$font-family: Montserrat, sans-serif;
 
 body {
   margin: 0;
   font-size: 16px;
   padding: 1rem;
-  font-family: Montserrat, sans-serif;
+  font-family: $font-family;
   color: #555;
 }
 
@@ -29,6 +30,10 @@ hr {
   border-bottom: 3px solid #eee;
   width: 200px;
   margin: 0 auto;
+}
+
+button {
+  font-family: $font-family;
 }
 
 .wrapper {
