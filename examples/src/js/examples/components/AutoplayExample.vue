@@ -2,6 +2,16 @@
   <div class="wrapper">
     <h2>Autoplay</h2>
 
+    <div class="description">
+      <a
+        href="https://github.com/Splidejs/vue-splide/blob/master/examples/src/js/examples/components/AutoplayExample.vue"
+        target="_blank"
+        rel="noopener"
+      >
+        View Code
+      </a>
+    </div>
+
     <splide :options="options">
       <splide-slide v-for="slide in slides" :key="slide.src">
         <img :src="slide.src" alt="slide.alt">

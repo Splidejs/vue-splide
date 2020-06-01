@@ -2,6 +2,16 @@
   <div class="wrapper">
     <h2>Basic Example</h2>
 
+    <div class="description">
+      <a
+        href="https://github.com/Splidejs/vue-splide/blob/master/examples/src/js/examples/components/BasicExample.vue"
+        target="_blank"
+        rel="noopener"
+      >
+        View Code
+      </a>
+    </div>
+
     <splide
       :options="options"
       @splide:moved="moved"

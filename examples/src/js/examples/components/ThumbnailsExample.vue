@@ -2,6 +2,16 @@
   <div class="wrapper">
     <h2>Thumbnail Slider</h2>
 
+    <div class="description">
+      <a
+        href="https://github.com/Splidejs/vue-splide/blob/master/examples/src/js/examples/components/ThumbnailExample.vue"
+        target="_blank"
+        rel="noopener"
+      >
+        View Code
+      </a>
+    </div>
+
     <splide
       :options="primaryOptions"
       ref="primary"
