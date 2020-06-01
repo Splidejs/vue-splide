@@ -1,6 +1,14 @@
 <template>
   <div class="splide">
-    <div class="splide__track">
+    <div class="splide__slider" v-if="hasSliderWrapper">
+      <div class="splide__track">
+        <ul class="splide__list">
+          <slot></slot>
+        </ul>
+      </div>
+    </div>
+
+    <div v-else class="splide__track">
       <ul class="splide__list">
         <slot></slot>
       </ul>
@@ -22,6 +30,7 @@
 				type   : Object,
 				default: () => ( {} ),
 			},
+      hasSliderWrapper: Boolean,
 			slides: Array,
 		},
 

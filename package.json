@@ -24,7 +24,7 @@
     "url": "https://github.com/Splidejs/vue-splide/issues"
   },
   "dependencies": {
-    "@splidejs/splide": "^2.3.5",
+    "@splidejs/splide": "^2.3.7",
     "vue": "^2.6.11"
   },
   "devDependencies": {

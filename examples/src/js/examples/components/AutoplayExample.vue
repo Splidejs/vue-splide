@@ -12,7 +12,7 @@
       </a>
     </div>
 
-    <splide :options="options">
+    <splide :options="options" has-slider-wrapper>
       <splide-slide v-for="slide in slides" :key="slide.src">
         <img :src="slide.src" alt="slide.alt">
       </splide-slide>
@@ -50,6 +50,7 @@
 				  gap         : '1rem',
 				  autoplay    : true,
 				  pauseOnHover: false,
+          arrows      : 'slider',
 			  },
 			  slides: createSlides(),
 		  };
