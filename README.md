@@ -10,7 +10,8 @@
 # Vue Splide
 **Vue Splide is the [Splide](https://github.com/Splidejs/splide) component for [Vue](https://vuejs.org/).**
 * [Document](https://splidejs.com/integration-vue-splide/)
-* [Splide](https://github.com/Splidejs/splide)
+* [Splide Demos](https://splidejs.com/)
+* [Working Examples](https://splidejs.github.io/vue-splide/)
 
 ## Installation
 Get the latest version by NPM:
