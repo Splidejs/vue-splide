@@ -4,7 +4,7 @@
 
     <div class="description">
       <a
-        href="https://github.com/Splidejs/vue-splide/blob/master/examples/src/js/examples/components/ThumbnailExample.vue"
+        href="https://github.com/Splidejs/vue-splide/blob/master/examples/src/js/examples/components/ThumbnailsExample.vue"
         target="_blank"
         rel="noopener"
       >
