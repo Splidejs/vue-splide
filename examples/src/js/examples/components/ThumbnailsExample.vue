@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <div class="wrapper">
+    <h2>Thumbnail Slider</h2>
+
     <splide
       :options="primaryOptions"
       ref="primary"
@@ -21,8 +23,7 @@
 </template>
 
 <script>
-  import Splide from '../../components/Splide';
-  import SplideSlide from '../../components/SplideSlide';
+	import { Splide, SplideSlide } from '../../../../../src/js';
   import { createSlides } from '../../utils/slides';
 
   export default {
@@ -35,7 +36,6 @@
       return {
 	      primaryOptions: {
 		      type      : 'loop',
-		      width     : 800,
 		      perPage   : 2,
 		      perMove   : 1,
 		      gap       : '1rem',
@@ -44,7 +44,6 @@
 	      secondaryOptions: {
 		      type        : 'slide',
 		      rewind      : true,
-		      width       : 800,
 		      gap         : '1rem',
 		      pagination  : false,
 		      fixedWidth  : 110,

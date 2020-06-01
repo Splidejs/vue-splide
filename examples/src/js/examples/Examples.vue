@@ -1,10 +1,13 @@
 <template>
-  <div>
+  <main id="examples">
     <basic-example></basic-example>
+    <hr>
     <autoplay-example></autoplay-example>
+    <hr>
     <thumbnail-example></thumbnail-example>
+    <hr>
     <dynamic-slide-example></dynamic-slide-example>
-  </div>
+  </main>
 </template>
 
 <script>

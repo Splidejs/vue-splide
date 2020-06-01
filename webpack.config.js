@@ -1,17 +1,12 @@
-/*
- * Dependencies.
- */
-const gulp          = require( 'gulp' );
-const webpackStream = require( 'webpack-stream' );
-const VueLoader     = require( 'vue-loader/lib/plugin' );
+const path              = require( 'path' );
+const VueLoader         = require( 'vue-loader/lib/plugin' );
+const htmlWebpackPlugin = require( 'html-webpack-plugin' );
 
-/*
- * Webpack config paths.
- */
-const config = {
-	entry: './src/js/app.js',
+module.exports = {
+	entry: './examples/src/js/app.js',
 	output: {
-		filename: 'vue-splide.js',
+		path    : path.join( __dirname, 'examples/dist' ),
+		filename: 'examples.js',
 	},
 	module: {
 		rules: [
@@ -49,14 +44,10 @@ const config = {
 	},
 	plugins: [
 		new VueLoader(),
+		new htmlWebpackPlugin( {
+			template: './examples/src/html/index.html',
+			filename: './index.html',
+		} ),
 	],
 	mode: 'production',
 };
-
-/*
- * Build a script file.
- */
-gulp.task( 'build:js', () => {
-	return webpackStream( { config } )
-		.pipe( gulp.dest( './dist/js' ) );
-} );

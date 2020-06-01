@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <div class="wrapper">
+    <h2>Autoplay</h2>
+
     <splide :options="options">
       <splide-slide v-for="slide in slides" :key="slide.src">
         <img :src="slide.src" alt="slide.alt">
@@ -21,8 +23,7 @@
 </template>
 
 <script>
-  import Splide from '../../components/Splide';
-  import SplideSlide from '../../components/SplideSlide';
+  import { Splide, SplideSlide } from '../../../../../src/js';
   import { createSlides } from "../../utils/slides";
 
   export default {
@@ -35,7 +36,6 @@
 		  return {
 			  options: {
 				  rewind      : true,
-				  width       : 800,
 				  perPage     : 1,
 				  gap         : '1rem',
 				  autoplay    : true,

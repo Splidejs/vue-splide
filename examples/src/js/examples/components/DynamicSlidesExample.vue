@@ -1,5 +1,7 @@
 <template>
   <div class="wrapper">
+    <h2>Dynamic Slides</h2>
+
     <splide :options="options" :slides="slides">
       <splide-slide v-for="slide in slides" :key="slide.src">
         <img :src="slide.src" alt="slide.alt">
@@ -13,8 +15,7 @@
 </template>
 
 <script>
-	import Splide from '../../components/Splide';
-	import SplideSlide from '../../components/SplideSlide';
+	import { Splide, SplideSlide } from '../../../../../src/js';
 	import { createSlides } from "../../utils/slides";
 
 	export default {
@@ -27,7 +28,6 @@
 			return {
 				options: {
 					rewind : true,
-					width  : 800,
 					perPage: 3,
 					gap    : '1rem',
 				},
@@ -46,10 +46,6 @@
 
 <style scoped lang="scss">
   $color: #20b2aa;
-
-  .wrapper {
-    max-width: calc( 800px + 6em );
-  }
 
   .controls {
     text-align: center;
