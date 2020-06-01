@@ -103,10 +103,10 @@ Here is a small example:
 </script>
 ```
 More examples:
-* [Basic example](https://github.com/Splidejs/vue-splide/blob/master/src/js/examples/components/BasicExample.vue)
-* [Autoplay](https://github.com/Splidejs/vue-splide/blob/master/src/js/examples/components/AutoplayExample.vue)
-* [Thumbnails](https://github.com/Splidejs/vue-splide/blob/master/src/js/examples/components/ThumbnailsExample.vue)
-* [Dynamic slides](https://github.com/Splidejs/vue-splide/blob/master/src/js/examples/components/DynamicSlidesExample.vue)
+* [Basic example](https://github.com/Splidejs/vue-splide/blob/master/examples/src/js/examples/components/BasicExample.vue)
+* [Autoplay](https://github.com/Splidejs/vue-splide/blob/master/examples/src/js/examples/components/AutoplayExample.vue)
+* [Thumbnails](https://github.com/Splidejs/vue-splide/blob/master/examples/src/js/examples/components/ThumbnailsExample.vue)
+* [Dynamic slides](https://github.com/Splidejs/vue-splide/blob/master/examples/src/js/examples/components/DynamicSlidesExample.vue)
 
 ## License
 Vue Splide and Splide are released under the MIT license.  
