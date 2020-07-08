@@ -31,6 +31,14 @@
 				default: () => ( {} ),
 			},
       hasSliderWrapper: Boolean,
+      extensions: {
+	      type   : Object,
+	      default: () => ( {} ),
+      },
+      transition: {
+	      type   : Function,
+	      default: null,
+      },
 			slides: Array,
 		},
 
@@ -43,7 +51,7 @@
     mounted() {
 			this.splide = new Splide( this.$el, this.options );
 			this.bind();
-	    this.splide.mount();
+	    this.splide.mount( this.extensions, this.transition );
     },
 
     beforeDestroy() {

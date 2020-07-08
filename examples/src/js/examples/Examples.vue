@@ -7,6 +7,8 @@
     <thumbnail-example></thumbnail-example>
     <hr>
     <dynamic-slide-example></dynamic-slide-example>
+    <hr>
+    <video-example></video-example>
   </main>
 </template>
 
@@ -15,6 +17,7 @@
 	import AutoplayExample from './components/AutoplayExample';
 	import ThumbnailExample from './components/ThumbnailsExample';
 	import DynamicSlideExample from './components/DynamicSlidesExample'
+	import VideoExample from "./components/VideoExample";
 
   export default {
   	components: {
@@ -22,6 +25,7 @@
       AutoplayExample,
 		  ThumbnailExample,
 		  DynamicSlideExample,
+		  VideoExample,
     },
   }
 </script>
