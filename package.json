@@ -1,6 +1,6 @@
 {
   "name": "@splidejs/vue-splide",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "The Splide component for Vue.",
   "author": "Naotoshi Fujita",
   "license": "MIT",
@@ -24,7 +24,7 @@
     "url": "https://github.com/Splidejs/vue-splide/issues"
   },
   "dependencies": {
-    "@splidejs/splide": "^2.4.11",
+    "@splidejs/splide": "^2.4.13",
     "@splidejs/splide-extension-video": "^0.4.6",
     "vue": "^2.6.12"
   },
