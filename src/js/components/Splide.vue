@@ -57,6 +57,16 @@
     beforeDestroy() {
 			this.splide.destroy();
     },
+		
+		activated() {
+			this.splide = new Splide( this.$el, this.options );
+			this.bind();
+	    this.splide.mount( this.extensions, this.transition );
+    },
+
+    desactivated() {
+    	this.splide.destroy();
+    },
 
 	  watch: {
 		  /**
