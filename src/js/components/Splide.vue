@@ -64,7 +64,7 @@
 	    this.splide.mount( this.extensions, this.transition );
     },
 
-    desactivated() {
+    deactivated() {
     	this.splide.destroy();
     },
 
