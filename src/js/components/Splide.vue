@@ -121,6 +121,7 @@
 		  remount() {
       	this.$nextTick( () => {
 		      this.splide.destroy();
+					this.splide.options = this.options
 		      this.splide.mount();
 		      this.bind();
         } );
