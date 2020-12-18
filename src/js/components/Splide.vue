@@ -121,8 +121,8 @@
 		  remount() {
       	this.$nextTick( () => {
 		      this.splide.destroy();
-		      this.splide.mount();
 		      this.bind();
+		      this.splide.mount();
         } );
       },
 	  },
