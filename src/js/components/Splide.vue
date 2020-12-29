@@ -54,7 +54,7 @@
 	    this.splide.mount( this.extensions, this.transition );
     },
 
-    beforeDestroy() {
+    beforeUnmount() {
 			this.splide.destroy();
     },
 
