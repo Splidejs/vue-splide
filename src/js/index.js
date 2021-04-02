@@ -5,8 +5,8 @@
  * @copyright Naotoshi Fujita. All rights reserved.
  */
 
-import Splide from './components/Splide';
-import SplideSlide from './components/SplideSlide';
+import Splide from './components/Splide.vue';
+import SplideSlide from './components/SplideSlide.vue';
 
 export default {
 	install( Vue, options ) {
