@@ -1,4 +1,4 @@
-import { defineComponent, openBlock, createElementBlock, createElementVNode, renderSlot, ref, onMounted, onBeforeUnmount, onUpdated, computed, resolveComponent, createCommentVNode, createVNode, withCtx, Fragment } from "vue";
+import { defineComponent, ref, onMounted, onBeforeUnmount, onUpdated, computed, openBlock, createElementBlock, renderSlot, createCommentVNode, createElementVNode, Fragment } from "vue";
 /*!
  * Splide.js
  * Version  : 3.1.6
@@ -2331,22 +2331,8 @@ var _export_sfc = (sfc, props) => {
   }
   return sfc;
 };
-const _sfc_main$2 = defineComponent({
-  name: "SplideTrack"
-});
-const _hoisted_1$2 = { class: "splide__track" };
-const _hoisted_2$1 = { class: "splide__list" };
-function _sfc_render$2(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createElementBlock("div", _hoisted_1$2, [
-    createElementVNode("ul", _hoisted_2$1, [
-      renderSlot(_ctx.$slots, "default")
-    ])
-  ]);
-}
-var SplideTrack = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["render", _sfc_render$2]]);
 const _sfc_main$1 = defineComponent({
   name: "Splide",
-  components: { SplideTrack },
   emits: EVENTS.map((event) => `splide:${event}`),
   props: {
     options: Object,
@@ -2421,27 +2407,28 @@ const _hoisted_2 = {
   key: 1,
   class: "splide__slider"
 };
+const _hoisted_3 = { class: "splide__track" };
+const _hoisted_4 = { class: "splide__list" };
+const _hoisted_5 = { class: "splide__track" };
+const _hoisted_6 = { class: "splide__list" };
 function _sfc_render$1(_ctx, _cache, $props, $setup, $data, $options) {
-  const _component_SplideTrack = resolveComponent("SplideTrack");
   return openBlock(), createElementBlock("div", _hoisted_1$1, [
     _ctx.hasSliderWrapper ? renderSlot(_ctx.$slots, "before-slider", { key: 0 }) : createCommentVNode("", true),
     _ctx.hasSliderWrapper ? (openBlock(), createElementBlock("div", _hoisted_2, [
       renderSlot(_ctx.$slots, "before-track"),
-      createVNode(_component_SplideTrack, null, {
-        default: withCtx(() => [
+      createElementVNode("div", _hoisted_3, [
+        createElementVNode("ul", _hoisted_4, [
           renderSlot(_ctx.$slots, "default")
-        ]),
-        _: 3
-      }),
+        ])
+      ]),
       renderSlot(_ctx.$slots, "after-track")
     ])) : (openBlock(), createElementBlock(Fragment, { key: 2 }, [
       renderSlot(_ctx.$slots, "before-track"),
-      createVNode(_component_SplideTrack, null, {
-        default: withCtx(() => [
+      createElementVNode("div", _hoisted_5, [
+        createElementVNode("ul", _hoisted_6, [
           renderSlot(_ctx.$slots, "default")
-        ]),
-        _: 3
-      }),
+        ])
+      ]),
       renderSlot(_ctx.$slots, "after-track")
     ], 64)),
     _ctx.hasSliderWrapper ? renderSlot(_ctx.$slots, "after-slider", { key: 3 }) : createCommentVNode("", true)

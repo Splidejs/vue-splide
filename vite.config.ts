@@ -28,7 +28,7 @@ export default defineConfig( {
         globals: {
           vue: 'Vue',
         },
-        // exports: 'named',
+        exports: 'named',
       },
     },
     minify: false,

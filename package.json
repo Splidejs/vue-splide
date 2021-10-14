@@ -1,6 +1,6 @@
 {
   "name": "@splidejs/vue-splide",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "The Splide component for Vue.",
   "author": "Naotoshi Fujita",
   "license": "MIT",
@@ -33,6 +33,7 @@
     "@vitejs/plugin-vue": "^1.9.3",
     "eslint": "^8.0.0",
     "eslint-plugin-vue": "^7.19.1",
+    "gh-pages": "^3.2.3",
     "typescript": "^4.4.3",
     "vite": "^2.6.7",
     "vue": "^3.2.20",
@@ -43,6 +44,7 @@
     "check:type": "vue-tsc --noEmit",
     "build": "vite build --watch false",
     "build:all": "npm run check:type && npm run build",
-    "eslint": "eslint src"
+    "eslint": "eslint src",
+    "deploy": "gh-pages -d examples/dist"
   }
 }

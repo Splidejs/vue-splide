@@ -2334,22 +2334,8 @@
     }
     return sfc;
   };
-  const _sfc_main$2 = vue.defineComponent({
-    name: "SplideTrack"
-  });
-  const _hoisted_1$2 = { class: "splide__track" };
-  const _hoisted_2$1 = { class: "splide__list" };
-  function _sfc_render$2(_ctx, _cache, $props, $setup, $data, $options) {
-    return vue.openBlock(), vue.createElementBlock("div", _hoisted_1$2, [
-      vue.createElementVNode("ul", _hoisted_2$1, [
-        vue.renderSlot(_ctx.$slots, "default")
-      ])
-    ]);
-  }
-  var SplideTrack = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["render", _sfc_render$2]]);
   const _sfc_main$1 = vue.defineComponent({
     name: "Splide",
-    components: { SplideTrack },
     emits: EVENTS.map((event) => `splide:${event}`),
     props: {
       options: Object,
@@ -2424,27 +2410,28 @@
     key: 1,
     class: "splide__slider"
   };
+  const _hoisted_3 = { class: "splide__track" };
+  const _hoisted_4 = { class: "splide__list" };
+  const _hoisted_5 = { class: "splide__track" };
+  const _hoisted_6 = { class: "splide__list" };
   function _sfc_render$1(_ctx, _cache, $props, $setup, $data, $options) {
-    const _component_SplideTrack = vue.resolveComponent("SplideTrack");
     return vue.openBlock(), vue.createElementBlock("div", _hoisted_1$1, [
       _ctx.hasSliderWrapper ? vue.renderSlot(_ctx.$slots, "before-slider", { key: 0 }) : vue.createCommentVNode("", true),
       _ctx.hasSliderWrapper ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_2, [
         vue.renderSlot(_ctx.$slots, "before-track"),
-        vue.createVNode(_component_SplideTrack, null, {
-          default: vue.withCtx(() => [
+        vue.createElementVNode("div", _hoisted_3, [
+          vue.createElementVNode("ul", _hoisted_4, [
             vue.renderSlot(_ctx.$slots, "default")
-          ]),
-          _: 3
-        }),
+          ])
+        ]),
         vue.renderSlot(_ctx.$slots, "after-track")
       ])) : (vue.openBlock(), vue.createElementBlock(vue.Fragment, { key: 2 }, [
         vue.renderSlot(_ctx.$slots, "before-track"),
-        vue.createVNode(_component_SplideTrack, null, {
-          default: vue.withCtx(() => [
+        vue.createElementVNode("div", _hoisted_5, [
+          vue.createElementVNode("ul", _hoisted_6, [
             vue.renderSlot(_ctx.$slots, "default")
-          ]),
-          _: 3
-        }),
+          ])
+        ]),
         vue.renderSlot(_ctx.$slots, "after-track")
       ], 64)),
       _ctx.hasSliderWrapper ? vue.renderSlot(_ctx.$slots, "after-slider", { key: 3 }) : vue.createCommentVNode("", true)

@@ -4,9 +4,7 @@ import path from 'path';
 
 
 export default defineConfig( {
-  build: {
-    minify: false,
-  },
+  base: './',
 	plugins: [ vue() ],
   resolve: {
     alias: [

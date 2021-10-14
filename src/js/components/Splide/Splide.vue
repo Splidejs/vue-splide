@@ -5,9 +5,11 @@
     <div v-if="hasSliderWrapper" class="splide__slider">
       <slot name="before-track"></slot>
 
-      <SplideTrack>
-        <slot></slot>
-      </SplideTrack>
+      <div class="splide__track">
+        <ul class="splide__list">
+          <slot></slot>
+        </ul>
+      </div>
 
       <slot name="after-track"></slot>
     </div>
@@ -15,9 +17,11 @@
     <template v-else>
       <slot name="before-track"></slot>
 
-      <SplideTrack>
-        <slot></slot>
-      </SplideTrack>
+      <div class="splide__track">
+        <ul class="splide__list">
+          <slot></slot>
+        </ul>
+      </div>
 
       <slot name="after-track"></slot>
     </template>
@@ -30,7 +34,6 @@
 import { ComponentConstructor, Options, Splide } from '@splidejs/splide';
 import { computed, defineComponent, onBeforeUnmount, onMounted, PropType, ref, onUpdated } from 'vue';
 import { EVENTS } from '../../constants/events';
-import SplideTrack from '../SplideTrack/SplideTrack.vue';
 
 
 /**
@@ -40,7 +43,6 @@ import SplideTrack from '../SplideTrack/SplideTrack.vue';
  */
 export default defineComponent( {
   name: 'Splide',
-  components: { SplideTrack },
   emits: EVENTS.map( event => `splide:${ event }` ),
 
   props: {

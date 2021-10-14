@@ -15,7 +15,8 @@ import AutoplayExample from './components/AutoplayExample.vue';
 import BasicExample from './components/BasicExample.vue';
 import DynamicSlidesExample from './components/DynamicSlideExample.vue';
 import ThumbnailsExample from './components/ThumbnailsExample.vue';
-import VideoExample from './components/VideoExample.vue';</script>
+import VideoExample from './components/VideoExample.vue';
+</script>
 
 <style>
 body {
