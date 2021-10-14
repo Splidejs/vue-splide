@@ -3,6 +3,7 @@
     <h2>Basic</h2>
 
     <Splide
+      v-if="enabled"
       :options="options"
       @splide:mounted="onSplideMounted"
       @splide:move="onSplideMove"
@@ -11,12 +12,16 @@
         <img :src="slide.src" :alt="slide.alt">
       </SplideSlide>
     </Splide>
+
+    <button @click="enabled = ! enabled">
+      {{ enabled ? 'Hide Slider' : 'Show Slider' }}
+    </button>
   </div>
 </template>
 
 <script lang="ts">
 import { Core, Splide, SplideSlide } from '@splidejs/vue-splide';
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 import { generateSlides } from '../utils';
 
 
@@ -42,6 +47,7 @@ export default defineComponent( {
       },
     };
 
+    const enabled         = ref<boolean>( true );
     const onSplideMounted = ( splide: Core ) => console.log( splide.length );
     const onSplideMove    = ( splide: Core, index: number ) => console.log( 'move to', index );
 
@@ -50,6 +56,7 @@ export default defineComponent( {
       options,
       onSplideMounted,
       onSplideMove,
+      enabled,
     }
   },
 } );
