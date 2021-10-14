@@ -2458,4 +2458,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   ]);
 }
 var SplideSlide = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render]]);
-export { Splide$1 as Core, Splide, SplideSlide };
+const VueSplide = {
+  install(app) {
+    app.component(Splide.name, Splide);
+    app.component(SplideSlide.name, SplideSlide);
+  }
+};
+export { Splide$1 as Core, Splide, SplideSlide, VueSplide as default };

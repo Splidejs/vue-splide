@@ -2461,9 +2461,16 @@
     ]);
   }
   var SplideSlide = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render]]);
+  const VueSplide = {
+    install(app) {
+      app.component(Splide.name, Splide);
+      app.component(SplideSlide.name, SplideSlide);
+    }
+  };
   exports2.Core = Splide$1;
   exports2.Splide = Splide;
   exports2.SplideSlide = SplideSlide;
+  exports2["default"] = VueSplide;
   Object.defineProperty(exports2, "__esModule", { value: true });
   exports2[Symbol.toStringTag] = "Module";
 });
