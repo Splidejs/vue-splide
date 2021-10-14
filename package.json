@@ -1,11 +1,12 @@
 {
   "name": "@splidejs/vue-splide",
-  "version": "0.3.5",
+  "version": "0.4.0",
   "description": "The Splide component for Vue.",
   "author": "Naotoshi Fujita",
   "license": "MIT",
-  "main": "src/js/index.js",
-  "module": "src/js/index.js",
+  "main": "dist/js/vue-splide.umd.js",
+  "module": "dist/js/vue-splide.esm.js",
+  "types": "src/js/index.ts",
   "keywords": [
     "splide",
     "slider",
@@ -24,29 +25,24 @@
     "url": "https://github.com/Splidejs/vue-splide/issues"
   },
   "dependencies": {
-    "@splidejs/splide": "^2.4.13",
-    "@splidejs/splide-extension-video": "^0.4.6",
-    "vue": "^2.6.12"
+    "@splidejs/splide": "^3.1.6"
   },
   "devDependencies": {
-    "@babel/cli": "^7.10.5",
-    "@babel/core": "^7.11.4",
-    "@babel/preset-env": "^7.11.0",
-    "babel-loader": "^8.1.0",
-    "css-loader": "^4.2.1",
-    "gh-pages": "^3.1.0",
-    "html-webpack-plugin": "^4.3.0",
-    "node-sass": "^4.14.1",
-    "sass-loader": "^9.0.3",
-    "serialize-javascript": "^4.0.0",
-    "style-loader": "^1.2.1",
-    "vue-loader": "^15.9.3",
-    "vue-template-compiler": "^2.6.12",
-    "webpack": "^4.44.1",
-    "webpack-cli": "^3.3.12"
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/parser": "^5.0.0",
+    "@vitejs/plugin-vue": "^1.9.3",
+    "eslint": "^8.0.0",
+    "eslint-plugin-vue": "^7.19.1",
+    "typescript": "^4.4.3",
+    "vite": "^2.6.7",
+    "vue": "^3.2.20",
+    "vue-tsc": "^0.28.3"
   },
   "scripts": {
-    "build": "webpack --mode production",
-    "deploy": "gh-pages -d examples/dist"
+    "develop": "vite build",
+    "check:type": "vue-tsc --noEmit",
+    "build": "vite build --watch false",
+    "build:all": "npm run check:type && npm run build",
+    "eslint": "eslint src"
   }
 }

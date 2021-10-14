@@ -1,0 +1,24 @@
+{
+  "name": "vue-splide-example",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@splidejs/splide-extension-video": "^0.5.0",
+    "@splidejs/vue-splide": "file:..",
+    "vue": "^3.2.20"
+  },
+  "devDependencies": {
+    "@splidejs/splide": "^3.1.5",
+    "@vitejs/plugin-vue": "^1.9.3",
+    "path": "^0.12.7",
+    "typescript": "^4.4.3",
+    "vite": "^2.6.4",
+    "vue-tsc": "^0.3.0"
+  },
+  "scripts": {
+    "develop": "vite",
+    "build": "vite build",
+    "build:all": "vue-tsc --noEmit && vite build",
+    "serve": "vite preview"
+  }
+}
