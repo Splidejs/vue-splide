@@ -6,7 +6,6 @@
       :options="options"
       @splide:mounted="onSplideMounted"
       @splide:move="onSplideMove"
-      ref="splide"
     >
       <SplideSlide v-for="slide in slides" :key="slide.alt">
         <img :src="slide.src" :alt="slide.alt">
