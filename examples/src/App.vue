@@ -3,9 +3,11 @@
   <hr>
   <AutoplayExample />
   <hr>
-  <ThumbnailsExample />
+  <ReactivityExample />
   <hr>
   <DynamicSlidesExample />
+  <hr>
+  <ThumbnailsExample />
   <hr>
   <VideoExample />
 </template>
@@ -14,6 +16,7 @@
 import AutoplayExample from './components/AutoplayExample.vue';
 import BasicExample from './components/BasicExample.vue';
 import DynamicSlidesExample from './components/DynamicSlideExample.vue';
+import ReactivityExample from './components/ReactivityExample.vue';
 import ThumbnailsExample from './components/ThumbnailsExample.vue';
 import VideoExample from './components/VideoExample.vue';
 </script>

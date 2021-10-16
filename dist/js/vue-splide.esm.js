@@ -1,4 +1,4 @@
-import { defineComponent, ref, onMounted, onBeforeUnmount, onUpdated, computed, openBlock, createElementBlock, renderSlot, createCommentVNode, createElementVNode, Fragment } from "vue";
+import { defineComponent, ref, onMounted, onBeforeUnmount, onUpdated, watch, computed, openBlock, createElementBlock, renderSlot, createCommentVNode, createElementVNode, Fragment } from "vue";
 /*!
  * Splide.js
  * Version  : 3.1.6
@@ -24,7 +24,7 @@ const DEFAULT_USER_EVENT_PRIORITY = 20;
 function empty(array) {
   array.length = 0;
 }
-function isObject(subject) {
+function isObject$1(subject) {
   return !isNull(subject) && typeof subject === "object";
 }
 function isArray(subject) {
@@ -97,7 +97,7 @@ function children(parent, selector) {
 function child(parent, selector) {
   return selector ? children(parent, selector)[0] : parent.firstElementChild;
 }
-function forOwn(object, iteratee) {
+function forOwn$1(object, iteratee) {
   if (object) {
     const keys = Object.keys(object);
     for (let i = 0; i < keys.length; i++) {
@@ -113,18 +113,18 @@ function forOwn(object, iteratee) {
 }
 function assign(object) {
   slice(arguments, 1).forEach((source) => {
-    forOwn(source, (value, key) => {
+    forOwn$1(source, (value, key) => {
       object[key] = source[key];
     });
   });
   return object;
 }
-function merge(object, source) {
-  forOwn(source, (value, key) => {
+function merge$1(object, source) {
+  forOwn$1(source, (value, key) => {
     if (isArray(value)) {
       object[key] = value.slice();
-    } else if (isObject(value)) {
-      object[key] = merge(isObject(object[key]) ? object[key] : {}, value);
+    } else if (isObject$1(value)) {
+      object[key] = merge$1(isObject$1(object[key]) ? object[key] : {}, value);
     } else {
       object[key] = value;
     }
@@ -139,8 +139,8 @@ function removeAttribute(elm, attrs) {
   }
 }
 function setAttribute(elm, attrs, value) {
-  if (isObject(attrs)) {
-    forOwn(attrs, (value2, name) => {
+  if (isObject$1(attrs)) {
+    forOwn$1(attrs, (value2, name) => {
       setAttribute(elm, name, value2);
     });
   } else {
@@ -282,7 +282,7 @@ function EventBus() {
     });
   }
   function offBy(key) {
-    forOwn(handlers, (eventHandlers, event) => {
+    forOwn$1(handlers, (eventHandlers, event) => {
       off(event, key);
     });
   }
@@ -477,11 +477,11 @@ function Options(Splide2, Components2, options) {
   let currPoint;
   function setup() {
     try {
-      merge(options, JSON.parse(getAttribute(Splide2.root, DATA_ATTRIBUTE)));
+      merge$1(options, JSON.parse(getAttribute(Splide2.root, DATA_ATTRIBUTE)));
     } catch (e) {
       assert(false, e.message);
     }
-    initialOptions = merge({}, options);
+    initialOptions = merge$1({}, options);
     const { breakpoints } = options;
     if (breakpoints) {
       const isMin = options.mediaQuery === "min";
@@ -953,7 +953,7 @@ function Layout(Splide2, Components2, options) {
   function cssPadding(right) {
     const { padding } = options;
     const prop = resolve(right ? "right" : "left", true);
-    return padding && unit(padding[prop] || (isObject(padding) ? 0 : padding)) || "0px";
+    return padding && unit(padding[prop] || (isObject$1(padding) ? 0 : padding)) || "0px";
   }
   function cssTrackHeight() {
     let height = "";
@@ -1710,7 +1710,7 @@ function Drag(Splide2, Components2, options) {
       } else {
         const diff = abs(coordOf(e) - coordOf(baseEvent));
         let { dragMinThreshold: thresholds } = options;
-        thresholds = isObject(thresholds) ? thresholds : { mouse: 0, touch: +thresholds || 10 };
+        thresholds = isObject$1(thresholds) ? thresholds : { mouse: 0, touch: +thresholds || 10 };
         isDragging = diff > (isTouchEvent(e) ? thresholds.touch : thresholds.mouse);
         if (isSliderDirection()) {
           prevent(e);
@@ -2200,8 +2200,8 @@ const _Splide = class {
     const root = isString(target) ? query(document, target) : target;
     assert(root, `${root} is invalid.`);
     this.root = root;
-    merge(DEFAULTS, _Splide.defaults);
-    merge(merge(this._options, DEFAULTS), options || {});
+    merge$1(DEFAULTS, _Splide.defaults);
+    merge$1(merge$1(this._options, DEFAULTS), options || {});
   }
   mount(Extensions, Transition) {
     const { state, Components: Components2 } = this;
@@ -2211,12 +2211,12 @@ const _Splide = class {
     this._Transition = Transition || this._Transition || (this.is(FADE) ? Fade : Slide);
     this._Extensions = Extensions || this._Extensions;
     const Constructors = assign({}, ComponentConstructors, this._Extensions, { Transition: this._Transition });
-    forOwn(Constructors, (Component, key) => {
+    forOwn$1(Constructors, (Component, key) => {
       const component = Component(this, Components2, this._options);
       Components2[key] = component;
       component.setup && component.setup();
     });
-    forOwn(Components2, (component) => {
+    forOwn$1(Components2, (component) => {
       component.mount && component.mount();
     });
     this.emit(EVENT_MOUNTED);
@@ -2266,7 +2266,7 @@ const _Splide = class {
     if (state.is(CREATED)) {
       event.on(EVENT_READY, this.destroy.bind(this, completely), this);
     } else {
-      forOwn(this._Components, (component) => {
+      forOwn$1(this._Components, (component) => {
         component.destroy && component.destroy(completely);
       });
       event.emit(EVENT_DESTROY);
@@ -2281,7 +2281,7 @@ const _Splide = class {
   }
   set options(options) {
     const { _options } = this;
-    merge(_options, options);
+    merge$1(_options, options);
     if (!this.state.is(CREATED)) {
       this.emit(EVENT_UPDATED, _options);
     }
@@ -2325,6 +2325,39 @@ const EVENTS = [
   EVENT_UPDATED,
   EVENT_VISIBLE
 ];
+function isEqualShallow(array1, array2) {
+  return array1.length === array2.length && !array1.some((elm, index) => elm !== array2[index]);
+}
+function isObject(subject) {
+  return subject !== null && typeof subject === "object";
+}
+function forOwn(object, iteratee) {
+  if (object) {
+    const keys = Object.keys(object);
+    for (let i = 0; i < keys.length; i++) {
+      const key = keys[i];
+      if (key !== "__proto__") {
+        if (iteratee(object[key], key) === false) {
+          break;
+        }
+      }
+    }
+  }
+  return object;
+}
+function merge(object, source) {
+  const merged = object;
+  forOwn(source, (value, key) => {
+    if (Array.isArray(value)) {
+      merged[key] = value.slice();
+    } else if (isObject(value)) {
+      merged[key] = merge(isObject(merged[key]) ? merged[key] : {}, value);
+    } else {
+      merged[key] = value;
+    }
+  });
+  return merged;
+}
 var _export_sfc = (sfc, props) => {
   for (const [key, val] of props) {
     sfc[key] = val;
@@ -2341,8 +2374,10 @@ const _sfc_main$1 = defineComponent({
     hasSliderWrapper: Boolean
   },
   setup(props, context) {
+    const { options } = props;
     const splide = ref();
     const root = ref();
+    let slides = [];
     onMounted(() => {
       if (root.value) {
         splide.value = new Splide$1(root.value, props.options);
@@ -2355,9 +2390,21 @@ const _sfc_main$1 = defineComponent({
       (_a = splide.value) == null ? void 0 : _a.destroy();
     });
     onUpdated(() => {
-      var _a;
-      (_a = splide.value) == null ? void 0 : _a.refresh();
+      if (splide.value) {
+        const newSlides = getSlides();
+        if (!isEqualShallow(slides, newSlides)) {
+          splide.value.refresh();
+          slides = newSlides;
+        }
+      }
     });
+    if (options) {
+      watch(() => merge({}, options), (options2) => {
+        if (splide.value) {
+          splide.value.options = options2;
+        }
+      }, { deep: true });
+    }
     const index = computed(() => {
       var _a;
       return ((_a = splide.value) == null ? void 0 : _a.index) || 0;
@@ -2388,6 +2435,14 @@ const _sfc_main$1 = defineComponent({
     function remount(splide2) {
       splide2.destroy(false);
       splide2.mount();
+    }
+    function getSlides() {
+      var _a;
+      if (splide.value) {
+        const children2 = (_a = splide.value.Components.Elements) == null ? void 0 : _a.list.children;
+        return children2 && Array.prototype.slice.call(children2) || [];
+      }
+      return [];
     }
     return {
       splide,
@@ -2451,4 +2506,4 @@ const VueSplide = {
     app.component(SplideSlide.name, SplideSlide);
   }
 };
-export { Splide$1 as Core, Splide, SplideSlide, VueSplide as default };
+export { Splide, SplideSlide, VueSplide as default };

@@ -11,6 +11,7 @@
     "declaration": true,
     "declarationMap": true,
     "mapRoot": "./",
+    "skipLibCheck": true,
     "lib": [
       "esnext",
       "dom"

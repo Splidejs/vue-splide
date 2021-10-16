@@ -32,8 +32,9 @@
 
 <script lang="ts">
 import { ComponentConstructor, Options, Splide } from '@splidejs/splide';
-import { computed, defineComponent, onBeforeUnmount, onMounted, PropType, ref, onUpdated } from 'vue';
+import { computed, defineComponent, onBeforeUnmount, onMounted, onUpdated, PropType, ref, watch } from 'vue';
 import { EVENTS } from '../../constants/events';
+import { isEqualShallow, merge } from '../../utils';
 
 
 /**
@@ -68,8 +69,10 @@ export default defineComponent( {
   },
 
   setup( props, context ) {
+    const { options } = props;
     const splide = ref<Splide>();
     const root   = ref<HTMLElement>();
+    let slides: HTMLElement[] = [];
 
     onMounted( () => {
       if ( root.value ) {
@@ -84,8 +87,23 @@ export default defineComponent( {
     } );
 
     onUpdated( () => {
-      splide.value?.refresh();
+      if ( splide.value ) {
+        const newSlides = getSlides();
+
+        if ( ! isEqualShallow( slides, newSlides ) ) {
+          splide.value.refresh();
+          slides = newSlides;
+        }
+      }
     } );
+
+    if ( options ) {
+      watch( () => merge( {}, options ), options => {
+        if ( splide.value ) {
+          splide.value.options = options;
+        }
+      }, { deep: true } );
+    }
 
     /**
      * Returns the current index.
@@ -148,6 +166,22 @@ export default defineComponent( {
     function remount( splide: Splide ): void {
       splide.destroy( false );
       splide.mount();
+    }
+
+    /**
+     * Returns an array with slide elements.
+     *
+     * @private
+     *
+     * @return An array with slide elements.
+     */
+    function getSlides(): HTMLElement[] {
+      if ( splide.value ) {
+        const children = splide.value.Components.Elements?.list.children;
+        return children && Array.prototype.slice.call( children ) || [];
+      }
+
+      return [];
     }
 
     return {

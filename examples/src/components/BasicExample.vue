@@ -20,7 +20,8 @@
 </template>
 
 <script lang="ts">
-import { Core, Splide, SplideSlide } from '@splidejs/vue-splide';
+import { Splide as Core } from '@splidejs/splide';
+import { Splide, SplideSlide } from '@splidejs/vue-splide'
 import { defineComponent, ref } from 'vue';
 import { generateSlides } from '../utils';
 
