@@ -1,7 +1,7 @@
 import { defineComponent, ref, onMounted, onBeforeUnmount, onUpdated, watch, computed, openBlock, createElementBlock, renderSlot, createCommentVNode, createElementVNode, Fragment } from "vue";
 /*!
  * Splide.js
- * Version  : 3.1.6
+ * Version  : 3.1.7
  * License  : MIT
  * Copyright: 2021 Naotoshi Fujita
  */
@@ -169,6 +169,9 @@ function style(elm, prop, value) {
 }
 function display(elm, display2) {
   style(elm, "display", display2);
+}
+function focus(elm) {
+  elm["setActive"] && elm["setActive"]() || elm.focus({ preventScroll: true });
 }
 function getAttribute(elm, attr) {
   return elm.getAttribute(attr);
@@ -1180,8 +1183,8 @@ function Move(Splide2, Components2, options) {
     return position;
   }
   function offset(index) {
-    const { focus } = options;
-    return focus === "center" ? (listSize() - slideSize(index, true)) / 2 : +focus * slideSize(index) || 0;
+    const { focus: focus2 } = options;
+    return focus2 === "center" ? (listSize() - slideSize(index, true)) / 2 : +focus2 * slideSize(index) || 0;
   }
   function getLimit(max2) {
     return toPosition(max2 ? Components2.Controller.getEnd() : 0, !!options.trimSpace);
@@ -1771,11 +1774,11 @@ function Drag(Splide2, Components2, options) {
   function coordOf(e, orthogonal) {
     return (isTouchEvent(e) ? e.touches[0] : e)[`page${resolve(orthogonal ? "Y" : "X")}`];
   }
-  function isTouchEvent(e) {
-    return typeof TouchEvent !== "undefined" && e instanceof TouchEvent;
-  }
   function timeOf(e) {
     return e.timeStamp;
+  }
+  function isTouchEvent(e) {
+    return typeof TouchEvent !== "undefined" && e instanceof TouchEvent;
   }
   function constrain(diff) {
     return diff / (hasExceeded && Splide2.is(SLIDE) ? FRICTION : 1);
@@ -1969,7 +1972,7 @@ function Pagination(Splide2, Components2, options) {
   function onClick(page) {
     Controller2.go(`>${page}`, true, () => {
       const Slide2 = Slides2.getAt(Controller2.toIndex(page));
-      Slide2 && Slide2.slide.focus();
+      Slide2 && focus(Slide2.slide);
     });
   }
   function getAt(index) {
