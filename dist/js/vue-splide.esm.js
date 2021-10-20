@@ -1,7 +1,7 @@
 import { defineComponent, ref, onMounted, onBeforeUnmount, onUpdated, watch, computed, openBlock, createElementBlock, renderSlot, createCommentVNode, createElementVNode, Fragment } from "vue";
 /*!
  * Splide.js
- * Version  : 3.1.7
+ * Version  : 3.1.8
  * License  : MIT
  * Copyright: 2021 Naotoshi Fujita
  */
@@ -97,9 +97,10 @@ function children(parent, selector) {
 function child(parent, selector) {
   return selector ? children(parent, selector)[0] : parent.firstElementChild;
 }
-function forOwn$1(object, iteratee) {
+function forOwn$1(object, iteratee, right) {
   if (object) {
-    const keys = Object.keys(object);
+    let keys = Object.keys(object);
+    keys = right ? keys.reverse() : keys;
     for (let i = 0; i < keys.length; i++) {
       const key = keys[i];
       if (key !== "__proto__") {
@@ -2271,7 +2272,7 @@ const _Splide = class {
     } else {
       forOwn$1(this._Components, (component) => {
         component.destroy && component.destroy(completely);
-      });
+      }, true);
       event.emit(EVENT_DESTROY);
       event.destroy();
       completely && empty(this.splides);
