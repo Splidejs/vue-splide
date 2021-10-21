@@ -1,7 +1,7 @@
 import { defineComponent, ref, onMounted, onBeforeUnmount, onUpdated, watch, computed, openBlock, createElementBlock, renderSlot, createCommentVNode, createElementVNode, Fragment } from "vue";
 /*!
  * Splide.js
- * Version  : 3.1.9
+ * Version  : 3.2.0
  * License  : MIT
  * Copyright: 2021 Naotoshi Fujita
  */
