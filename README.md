@@ -1,9 +1,9 @@
 <div align="center">
   <a href="https://splidejs.com" target="_blank">
-      <img width="80" src="images/logo.svg">
+      <img width="70" src="images/logo.svg">
   </a>
   <a href="https://v3.vuejs.org/" target="_blank">
-      <img width="80" src="images/vue-logo.svg">
+      <img width="70" src="images/vue-logo.svg">
   </a>
 
   <h1>Vue Splide</h1>
