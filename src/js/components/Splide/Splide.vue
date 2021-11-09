@@ -132,13 +132,7 @@ export default defineComponent( {
      * @param target - A target to sync.
      */
     function sync( target: Splide ): void {
-      const { value: main } = splide;
-
-      if ( main ) {
-        main.sync( target );
-        remount( main );
-        remount( target );
-      }
+      splide.value?.sync( target );
     }
 
     /**
@@ -154,18 +148,6 @@ export default defineComponent( {
           context.emit( `splide:${ event }`, splide, ...args );
         } );
       } );
-    }
-
-    /**
-     * Remounts the provided splide instance.
-     *
-     * @private
-     *
-     * @param splide - A splide instance to remount.
-     */
-    function remount( splide: Splide ): void {
-      splide.destroy( false );
-      splide.mount();
     }
 
     /**

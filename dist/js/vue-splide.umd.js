@@ -4,7 +4,7 @@
   "use strict";
   /*!
    * Splide.js
-   * Version  : 3.2.2
+   * Version  : 3.2.7
    * License  : MIT
    * Copyright: 2021 Naotoshi Fujita
    */
@@ -714,26 +714,16 @@
     const focusableNodes = options.focusableNodes && queryAll(slide, options.focusableNodes);
     let destroyed;
     function mount() {
-      init();
+      if (!isClone) {
+        slide.id = `${root.id}-slide${pad(index + 1)}`;
+      }
       bind(slide, "click keydown", (e) => {
         emit(e.type === "click" ? EVENT_CLICK : EVENT_SLIDE_KEYDOWN, this, e);
       });
       on([EVENT_REFRESH, EVENT_REPOSITIONED, EVENT_MOVED, EVENT_SCROLLED], update.bind(this));
+      on(EVENT_NAVIGATION_MOUNTED, initNavigation.bind(this));
       if (updateOnMove) {
         on(EVENT_MOVE, onMove.bind(this));
-      }
-    }
-    function init() {
-      if (!isClone) {
-        slide.id = `${root.id}-slide${pad(index + 1)}`;
-      }
-      if (isNavigation) {
-        const idx = isClone ? slideIndex : index;
-        const label = format(options.i18n.slideX, idx + 1);
-        const controls = Splide2.splides.map((splide) => splide.root.id).join(" ");
-        setAttribute(slide, ARIA_LABEL, label);
-        setAttribute(slide, ARIA_CONTROLS, controls);
-        setAttribute(slide, ROLE, "menuitem");
       }
     }
     function destroy() {
@@ -742,6 +732,15 @@
       removeClass(slide, STATUS_CLASSES);
       removeAttribute(slide, ALL_ATTRIBUTES);
       setAttribute(slide, "style", styles);
+    }
+    function initNavigation() {
+      const idx = isClone ? slideIndex : index;
+      const label = format(options.i18n.slideX, idx + 1);
+      const controls = Splide2.splides.map((splide) => splide.root.id).join(" ");
+      setAttribute(slide, ARIA_LABEL, label);
+      setAttribute(slide, ARIA_CONTROLS, controls);
+      setAttribute(slide, ROLE, "menuitem");
+      updateActivity.call(this, isActive());
     }
     function onMove(next, prev, dest) {
       if (!destroyed) {
@@ -931,9 +930,10 @@
     const { on, bind, emit } = EventInterface(Splide2);
     const { Slides: Slides2 } = Components2;
     const { resolve } = Components2.Direction;
-    const { track, list } = Components2.Elements;
+    const { root, track, list } = Components2.Elements;
     const { getAt } = Slides2;
     let vertical;
+    let rootRect;
     function mount() {
       init();
       bind(window, "resize load", Throttle(emit.bind(this, EVENT_RESIZE)));
@@ -941,18 +941,23 @@
       on(EVENT_RESIZE, resize);
     }
     function init() {
+      rootRect = null;
       vertical = options.direction === TTB;
-      style(Splide2.root, "maxWidth", unit(options.width));
+      style(root, "maxWidth", unit(options.width));
       style(track, resolve("paddingLeft"), cssPadding(false));
       style(track, resolve("paddingRight"), cssPadding(true));
       resize();
     }
     function resize() {
-      style(track, "height", cssTrackHeight());
-      Slides2.style(resolve("marginRight"), unit(options.gap));
-      Slides2.style("width", cssSlideWidth() || null);
-      setSlidesHeight();
-      emit(EVENT_RESIZED);
+      const newRect = rect(root);
+      if (!rootRect || rootRect.width !== newRect.width || rootRect.height !== newRect.height) {
+        style(track, "height", cssTrackHeight());
+        Slides2.style(resolve("marginRight"), unit(options.gap));
+        Slides2.style("width", cssSlideWidth() || null);
+        setSlidesHeight();
+        rootRect = newRect;
+        emit(EVENT_RESIZED);
+      }
     }
     function setSlidesHeight() {
       Slides2.style("height", cssSlideHeight() || null, true);
@@ -1101,7 +1106,7 @@
       removeAttribute(list, "style");
     }
     function reposition() {
-      if (!isBusy() && !Components2.Drag.isDragging()) {
+      if (!isBusy()) {
         Components2.Scroll.cancel();
         jump(Splide2.index);
         emit(EVENT_REPOSITIONED);
@@ -1273,11 +1278,7 @@
           index = getPrev(true);
         }
       } else {
-        if (isLoop) {
-          index = clamp(control, -perPage, slideCount + perPage - 1);
-        } else {
-          index = clamp(control, 0, getEnd());
-        }
+        index = isLoop ? control : clamp(control, 0, getEnd());
       }
       return index;
     }
@@ -1313,7 +1314,7 @@
             }
           }
         } else {
-          if (!isLoop && !incremental && dest !== from) {
+          if (!incremental && dest !== from) {
             dest = perMove ? dest : toIndex(toPage(from) + (dest < from ? -1 : 1));
           }
         }
@@ -1708,21 +1709,21 @@
       }
       lastEvent = e;
       if (e.cancelable) {
+        const diff = coordOf(e) - coordOf(baseEvent);
         if (dragging) {
+          Move2.translate(basePosition + constrain(diff));
           const expired = timeOf(e) - timeOf(baseEvent) > LOG_INTERVAL;
           const exceeded = hasExceeded !== (hasExceeded = exceededLimit());
           if (expired || exceeded) {
             save(e);
           }
-          Move2.translate(basePosition + constrain(coordOf(e) - coordOf(baseEvent)));
           emit(EVENT_DRAGGING);
           clickPrevented = true;
           prevent(e);
         } else {
-          const diff = abs(coordOf(e) - coordOf(baseEvent));
           let { dragMinThreshold: thresholds } = options;
           thresholds = isObject$1(thresholds) ? thresholds : { mouse: 0, touch: +thresholds || 10 };
-          dragging = diff > (isTouchEvent(e) ? thresholds.touch : thresholds.mouse);
+          dragging = abs(diff) > (isTouchEvent(e) ? thresholds.touch : thresholds.mouse);
           if (isSliderDirection()) {
             prevent(e);
           }
@@ -1809,12 +1810,11 @@
     const { root } = Components2.Elements;
     const { resolve } = Components2.Direction;
     let target;
+    let disabled;
     function mount() {
       init();
-      on(EVENT_UPDATED, () => {
-        destroy();
-        init();
-      });
+      on(EVENT_UPDATED, onUpdated);
+      on(EVENT_MOVE, onMove);
     }
     function init() {
       const { keyboard = "global" } = options;
@@ -1834,13 +1834,25 @@
         removeAttribute(target, TAB_INDEX);
       }
     }
+    function onMove() {
+      disabled = true;
+      nextTick(() => {
+        disabled = false;
+      });
+    }
+    function onUpdated() {
+      destroy();
+      init();
+    }
     function onKeydown(e) {
-      const { key } = e;
-      const normalizedKey = includes(IE_ARROW_KEYS, key) ? `Arrow${key}` : key;
-      if (normalizedKey === resolve("ArrowLeft")) {
-        Splide2.go("<");
-      } else if (normalizedKey === resolve("ArrowRight")) {
-        Splide2.go(">");
+      if (!disabled) {
+        const { key } = e;
+        const normalizedKey = includes(IE_ARROW_KEYS, key) ? `Arrow${key}` : key;
+        if (normalizedKey === resolve("ArrowLeft")) {
+          Splide2.go("<");
+        } else if (normalizedKey === resolve("ArrowRight")) {
+          Splide2.go(">");
+        }
       }
     }
     return {
@@ -2015,37 +2027,51 @@
   function Sync(Splide2, Components2, options) {
     const { splides } = Splide2;
     const { list } = Components2.Elements;
+    const events = [];
     function mount() {
       if (options.isNavigation) {
         navigate();
       } else {
-        sync();
+        splides.length && sync();
       }
     }
     function destroy() {
       removeAttribute(list, ALL_ATTRIBUTES);
+      events.forEach((event) => {
+        event.destroy();
+      });
+      empty(events);
+    }
+    function remount() {
+      destroy();
+      mount();
     }
     function sync() {
       const processed = [];
       splides.concat(Splide2).forEach((splide, index, instances) => {
-        EventInterface(splide).on(EVENT_MOVE, (index2, prev, dest) => {
+        const event = EventInterface(splide);
+        event.on(EVENT_MOVE, (index2, prev, dest) => {
           instances.forEach((instance) => {
             if (instance !== splide && !includes(processed, splide)) {
               processed.push(instance);
+              instance.Components.Move.cancel();
               instance.go(instance.is(LOOP) ? dest : index2);
             }
           });
           empty(processed);
         });
+        events.push(event);
       });
     }
     function navigate() {
-      const { on, emit } = EventInterface(Splide2);
+      const event = EventInterface(Splide2);
+      const { on } = event;
       on(EVENT_CLICK, onClick);
       on(EVENT_SLIDE_KEYDOWN, onKeydown);
       on([EVENT_MOUNTED, EVENT_UPDATED], update);
       setAttribute(list, ROLE, "menu");
-      emit(EVENT_NAVIGATION_MOUNTED, Splide2.splides);
+      events.push(event);
+      event.emit(EVENT_NAVIGATION_MOUNTED, Splide2.splides);
     }
     function update() {
       setAttribute(list, ARIA_ORIENTATION, options.direction !== TTB ? "horizontal" : null);
@@ -2061,7 +2087,8 @@
     }
     return {
       mount,
-      destroy
+      destroy,
+      remount
     };
   }
   function Wheel(Splide2, Components2, options) {
@@ -2244,6 +2271,10 @@
     sync(splide) {
       this.splides.push(splide);
       splide.splides.push(this);
+      if (this.state.is(IDLE)) {
+        this._Components.Sync.remount();
+        splide.Components.Sync.remount();
+      }
       return this;
     }
     go(control) {
@@ -2434,12 +2465,8 @@
         (_a = splide.value) == null ? void 0 : _a.go(control);
       }
       function sync(target) {
-        const { value: main } = splide;
-        if (main) {
-          main.sync(target);
-          remount(main);
-          remount(target);
-        }
+        var _a;
+        (_a = splide.value) == null ? void 0 : _a.sync(target);
       }
       function bind(splide2) {
         EVENTS.forEach((event) => {
@@ -2447,10 +2474,6 @@
             context.emit(`splide:${event}`, splide2, ...args);
           });
         });
-      }
-      function remount(splide2) {
-        splide2.destroy(false);
-        splide2.mount();
       }
       function getSlides() {
         var _a;
