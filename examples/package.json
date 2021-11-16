@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "@splidejs/splide": "^3.4.2",
-    "@splidejs/splide-extension-video": "^0.5.11",
+    "@splidejs/splide-extension-video": "^0.5.12",
     "@splidejs/vue-splide": "file:..",
     "vue": "^3.2.20"
   },

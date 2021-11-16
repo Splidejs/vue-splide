@@ -4,7 +4,7 @@
   "use strict";
   /*!
    * Splide.js
-   * Version  : 3.4.2
+   * Version  : 3.5.0
    * License  : MIT
    * Copyright: 2021 Naotoshi Fujita
    */
@@ -443,6 +443,9 @@
       id = 0;
       paused = true;
     }
+    function set(time) {
+      interval = time;
+    }
     function isPaused() {
       return paused;
     }
@@ -451,6 +454,7 @@
       rewind,
       pause,
       cancel,
+      set,
       isPaused
     };
   }
@@ -1462,11 +1466,12 @@
       destroy
     };
   }
+  const INTERVAL_DATA_ATTRIBUTE = `${DATA_ATTRIBUTE}-interval`;
   function Autoplay(Splide2, Components2, options) {
     const { on, bind, emit } = EventInterface(Splide2);
-    const { Elements: Elements2 } = Components2;
     const interval = RequestInterval(options.interval, Splide2.go.bind(Splide2, ">"), update);
     const { isPaused } = interval;
+    const { Elements: Elements2 } = Components2;
     let hovered;
     let focused;
     let paused;
@@ -1505,6 +1510,7 @@
         });
       }
       on([EVENT_MOVE, EVENT_SCROLL, EVENT_REFRESH], interval.rewind);
+      on(EVENT_MOVE, updateInterval);
     }
     function play() {
       if (isPaused() && Components2.Slides.isEnough()) {
@@ -1531,10 +1537,12 @@
     }
     function update(rate) {
       const { bar } = Elements2;
-      if (bar) {
-        style(bar, "width", `${rate * 100}%`);
-      }
+      bar && style(bar, "width", `${rate * 100}%`);
       emit(EVENT_AUTOPLAY_PLAYING, rate);
+    }
+    function updateInterval() {
+      const Slide2 = Components2.Slides.getAt(Splide2.index);
+      interval.set(Slide2 && +getAttribute(Slide2.slide, INTERVAL_DATA_ATTRIBUTE) || options.interval);
     }
     return {
       mount,
@@ -1734,6 +1742,7 @@
     function onPointerUp(e) {
       unbind(target, POINTER_MOVE_EVENTS, onPointerMove);
       unbind(target, POINTER_UP_EVENTS, onPointerUp);
+      const { index } = Splide2;
       if (lastEvent) {
         if (dragging || e.cancelable && isSliderDirection()) {
           const velocity = computeVelocity(e);
@@ -1741,7 +1750,7 @@
           if (isFree) {
             Controller2.scroll(destination);
           } else if (Splide2.is(FADE)) {
-            Controller2.go(Splide2.index + orient(sign(velocity)));
+            Controller2.go(index + orient(sign(velocity)));
           } else {
             Controller2.go(Controller2.toDest(destination), true);
           }
@@ -1749,8 +1758,8 @@
         }
         emit(EVENT_DRAGGED);
       } else {
-        if (!isFree) {
-          Controller2.go(Splide2.index, true);
+        if (!isFree && getPosition() !== Move2.toPosition(index)) {
+          Controller2.go(index, true);
         }
       }
       dragging = false;
