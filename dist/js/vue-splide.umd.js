@@ -4,7 +4,7 @@
   "use strict";
   /*!
    * Splide.js
-   * Version  : 3.3.0
+   * Version  : 3.4.0
    * License  : MIT
    * Copyright: 2021 Naotoshi Fujita
    */
@@ -1368,6 +1368,7 @@
       scroll,
       getNext,
       getPrev,
+      getAdjacent,
       getEnd,
       setIndex,
       getIndex,
@@ -2033,7 +2034,7 @@
     const events = [];
     function mount() {
       Splide2.splides.forEach((target) => {
-        !target.isChild && sync(target.splide);
+        !target.isParent && sync(target.splide);
       });
       if (options.isNavigation) {
         navigate();
@@ -2098,9 +2099,13 @@
     function onWheel(e) {
       const { deltaY } = e;
       if (deltaY) {
-        Splide2.go(deltaY < 0 ? "<" : ">");
-        prevent(e);
+        const backwards = deltaY < 0;
+        Splide2.go(backwards ? "<" : ">");
+        shouldPrevent(backwards) && prevent(e);
       }
+    }
+    function shouldPrevent(backwards) {
+      return !options.releaseWheel || Splide2.state.is(MOVING) || Components2.Controller.getAdjacent(backwards) !== -1;
     }
     return {
       mount
@@ -2267,7 +2272,7 @@
     }
     sync(splide) {
       this.splides.push({ splide });
-      splide.splides.push({ splide: this, isChild: true });
+      splide.splides.push({ splide: this, isParent: true });
       if (this.state.is(IDLE)) {
         this._Components.Sync.remount();
         splide.Components.Sync.remount();
