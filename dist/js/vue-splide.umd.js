@@ -4,7 +4,7 @@
   "use strict";
   /*!
    * Splide.js
-   * Version  : 3.5.0
+   * Version  : 3.5.3
    * License  : MIT
    * Copyright: 2021 Naotoshi Fujita
    */
@@ -817,6 +817,7 @@
       isClone,
       mount,
       destroy,
+      update,
       style: style$1,
       isWithin
     };
@@ -846,6 +847,11 @@
     function refresh() {
       destroy();
       init();
+    }
+    function update() {
+      forEach$1((Slide2) => {
+        Slide2.update();
+      });
     }
     function register(slide, index, slideIndex) {
       const object = Slide$1(Splide2, index, slideIndex, slide);
@@ -917,6 +923,7 @@
     return {
       mount,
       destroy,
+      update,
       register,
       get,
       getIn,
@@ -2034,7 +2041,8 @@
       items,
       mount,
       destroy,
-      getAt
+      getAt,
+      update
     };
   }
   const TRIGGER_KEYS = [" ", "Enter", "Spacebar"];
