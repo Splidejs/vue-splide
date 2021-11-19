@@ -4,7 +4,7 @@
   "use strict";
   /*!
    * Splide.js
-   * Version  : 3.5.3
+   * Version  : 3.5.8
    * License  : MIT
    * Copyright: 2021 Naotoshi Fujita
    */
@@ -319,6 +319,7 @@
   const EVENT_READY = "ready";
   const EVENT_MOVE = "move";
   const EVENT_MOVED = "moved";
+  const EVENT_SHIFTED = "shifted";
   const EVENT_CLICK = "click";
   const EVENT_ACTIVE = "active";
   const EVENT_INACTIVE = "inactive";
@@ -722,12 +723,12 @@
         slide.id = `${root.id}-slide${pad(index + 1)}`;
       }
       bind(slide, "click keydown", (e) => {
-        emit(e.type === "click" ? EVENT_CLICK : EVENT_SLIDE_KEYDOWN, this, e);
+        emit(e.type === "click" ? EVENT_CLICK : EVENT_SLIDE_KEYDOWN, self2, e);
       });
-      on([EVENT_REFRESH, EVENT_REPOSITIONED, EVENT_MOVED, EVENT_SCROLLED], update.bind(this));
-      on(EVENT_NAVIGATION_MOUNTED, initNavigation.bind(this));
+      on([EVENT_REFRESH, EVENT_REPOSITIONED, EVENT_SHIFTED, EVENT_MOVED, EVENT_SCROLLED], update);
+      on(EVENT_NAVIGATION_MOUNTED, initNavigation);
       if (updateOnMove) {
-        on(EVENT_MOVE, onMove.bind(this));
+        on(EVENT_MOVE, onMove);
       }
     }
     function destroy() {
@@ -744,21 +745,18 @@
       setAttribute(slide, ARIA_LABEL, label);
       setAttribute(slide, ARIA_CONTROLS, controls);
       setAttribute(slide, ROLE, "menuitem");
-      updateActivity.call(this, isActive());
+      updateActivity(isActive());
     }
-    function onMove(next, prev, dest) {
+    function onMove() {
       if (!destroyed) {
-        update.call(this);
-        if (dest === index) {
-          updateActivity.call(this, true);
-        }
+        update();
       }
     }
     function update() {
       if (!destroyed) {
         const { index: currIndex } = Splide2;
-        updateActivity.call(this, isActive());
-        updateVisibility.call(this, isVisible());
+        updateActivity(isActive());
+        updateVisibility(isVisible());
         toggleClass(slide, CLASS_PREV, index === currIndex - 1);
         toggleClass(slide, CLASS_NEXT, index === currIndex + 1);
       }
@@ -769,7 +767,7 @@
         if (isNavigation) {
           setAttribute(slide, ARIA_CURRENT, active || null);
         }
-        emit(active ? EVENT_ACTIVE : EVENT_INACTIVE, this);
+        emit(active ? EVENT_ACTIVE : EVENT_INACTIVE, self2);
       }
     }
     function updateVisibility(visible) {
@@ -783,14 +781,15 @@
       }
       if (visible !== hasClass(slide, CLASS_VISIBLE)) {
         toggleClass(slide, CLASS_VISIBLE, visible);
-        emit(visible ? EVENT_VISIBLE : EVENT_HIDDEN, this);
+        emit(visible ? EVENT_VISIBLE : EVENT_HIDDEN, self2);
       }
     }
     function style$1(prop, value, useContainer) {
       style(useContainer && container || slide, prop, value);
     }
     function isActive() {
-      return Splide2.index === index;
+      const { index: curr } = Splide2;
+      return curr === index || options.cloneStatus && curr === slideIndex;
     }
     function isVisible() {
       if (Splide2.is(FADE)) {
@@ -809,7 +808,7 @@
       }
       return diff <= distance;
     }
-    return {
+    const self2 = {
       index,
       slideIndex,
       slide,
@@ -821,6 +820,7 @@
       style: style$1,
       isWithin
     };
+    return self2;
   }
   function Slides(Splide2, Components2, options) {
     const { on, emit, bind } = EventInterface(Splide2);
@@ -1150,7 +1150,9 @@
     }
     function translate(position, preventLoop) {
       if (!Splide2.is(FADE)) {
-        list.style.transform = `translate${resolve("X")}(${preventLoop ? position : loop(position)}px)`;
+        const destination = preventLoop ? position : loop(position);
+        list.style.transform = `translate${resolve("X")}(${destination}px)`;
+        position !== destination && emit(EVENT_SHIFTED);
       }
     }
     function loop(position) {
@@ -1317,7 +1319,7 @@
             dest = toIndex(toPage(dest));
           } else {
             if (isLoop) {
-              dest = perMove ? dest : dest < 0 ? -(slideCount % perPage || perPage) : slideCount;
+              dest = perMove || hasFocus() ? dest : dest < 0 ? -(slideCount % perPage || perPage) : slideCount;
             } else if (options.rewind) {
               dest = dest < 0 ? end : 0;
             } else {
@@ -1891,14 +1893,16 @@
     let index = 0;
     function mount() {
       if (options.lazyLoad) {
-        on([EVENT_MOUNTED, EVENT_REFRESH], () => {
-          destroy();
-          init();
-        });
+        init();
+        on(EVENT_REFRESH, refresh);
         if (!isSequential) {
-          on([EVENT_MOUNTED, EVENT_REFRESH, EVENT_MOVED], observe);
+          on([EVENT_MOUNTED, EVENT_REFRESH, EVENT_MOVED, EVENT_SCROLLED], observe);
         }
       }
+    }
+    function refresh() {
+      destroy();
+      init();
     }
     function init() {
       Components2.Slides.forEach((_Slide) => {
@@ -1906,7 +1910,9 @@
           const src = getAttribute(_img, SRC_DATA_ATTRIBUTE);
           const srcset = getAttribute(_img, SRCSET_DATA_ATTRIBUTE);
           if (src !== _img.src || srcset !== _img.srcset) {
-            const _spinner = create("span", options.classes.spinner, _img.parentElement);
+            const className = options.classes.spinner;
+            const parent = _img.parentElement;
+            const _spinner = child(parent, `.${className}`) || create("span", className, parent);
             setAttribute(_spinner, ROLE, "presentation");
             images.push({ _img, _Slide, src, srcset, _spinner });
             !_img.src && display(_img, "none");
@@ -2166,6 +2172,7 @@
     speed: 400,
     waitForTransition: true,
     perPage: 1,
+    cloneStatus: true,
     arrows: true,
     pagination: true,
     interval: 5e3,
