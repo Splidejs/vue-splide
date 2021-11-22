@@ -4,7 +4,7 @@
   "use strict";
   /*!
    * Splide.js
-   * Version  : 3.5.8
+   * Version  : 3.6.1
    * License  : MIT
    * Copyright: 2021 Naotoshi Fujita
    */
@@ -771,12 +771,12 @@
       }
     }
     function updateVisibility(visible) {
-      const ariaHidden = !visible && !isActive();
-      setAttribute(slide, ARIA_HIDDEN, ariaHidden || null);
-      setAttribute(slide, TAB_INDEX, !ariaHidden && options.slideFocus ? 0 : null);
+      const hidden = !visible && (!isActive() || isClone);
+      setAttribute(slide, ARIA_HIDDEN, hidden || null);
+      setAttribute(slide, TAB_INDEX, !hidden && options.slideFocus ? 0 : null);
       if (focusableNodes) {
         focusableNodes.forEach((node) => {
-          setAttribute(node, TAB_INDEX, ariaHidden ? -1 : null);
+          setAttribute(node, TAB_INDEX, hidden ? -1 : null);
         });
       }
       if (visible !== hasClass(slide, CLASS_VISIBLE)) {
@@ -1828,9 +1828,10 @@
     };
   }
   const IE_ARROW_KEYS = ["Left", "Right", "Up", "Down"];
+  const KEYBOARD_EVENT = "keydown";
   function Keyboard(Splide2, Components2, options) {
     const { on, bind, unbind } = EventInterface(Splide2);
-    const { root } = Components2.Elements;
+    const { root } = Splide2;
     const { resolve } = Components2.Direction;
     let target;
     let disabled;
@@ -1840,7 +1841,7 @@
       on(EVENT_MOVE, onMove);
     }
     function init() {
-      const { keyboard = "global" } = options;
+      const { keyboard } = options;
       if (keyboard) {
         if (keyboard === "focused") {
           target = root;
@@ -1848,19 +1849,23 @@
         } else {
           target = window;
         }
-        bind(target, "keydown", onKeydown);
+        bind(target, KEYBOARD_EVENT, onKeydown);
       }
     }
     function destroy() {
-      unbind(target, "keydown");
+      unbind(target, KEYBOARD_EVENT);
       if (isHTMLElement(target)) {
         removeAttribute(target, TAB_INDEX);
       }
     }
+    function disable(value) {
+      disabled = value;
+    }
     function onMove() {
+      const _disabled = disabled;
       disabled = true;
       nextTick(() => {
-        disabled = false;
+        disabled = _disabled;
       });
     }
     function onUpdated() {
@@ -1880,7 +1885,8 @@
     }
     return {
       mount,
-      destroy
+      destroy,
+      disable
     };
   }
   const SRC_DATA_ATTRIBUTE = `${DATA_ATTRIBUTE}-lazy`;
@@ -2179,6 +2185,7 @@
     pauseOnHover: true,
     pauseOnFocus: true,
     resetProgress: true,
+    keyboard: true,
     easing: "cubic-bezier(0.25, 1, 0.5, 1)",
     drag: true,
     direction: "ltr",
@@ -2434,10 +2441,11 @@
     return merged;
   }
   var _export_sfc = (sfc, props) => {
+    const target = sfc.__vccOpts || sfc;
     for (const [key, val] of props) {
-      sfc[key] = val;
+      target[key] = val;
     }
-    return sfc;
+    return target;
   };
   const _sfc_main$1 = vue.defineComponent({
     name: "Splide",
