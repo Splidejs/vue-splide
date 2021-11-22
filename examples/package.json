@@ -5,7 +5,7 @@
   "dependencies": {
     "@splidejs/splide": "^3.6.1",
     "@splidejs/splide-extension-video": "^0.6.1",
-    "@splidejs/vue-splide": "^0.5.12",
+    "@splidejs/vue-splide": "file:..",
     "vue": "^3.2.22"
   },
   "devDependencies": {
