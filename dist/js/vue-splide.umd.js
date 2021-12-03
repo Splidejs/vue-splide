@@ -4,7 +4,7 @@
   "use strict";
   /*!
    * Splide.js
-   * Version  : 3.6.8
+   * Version  : 3.6.9
    * License  : MIT
    * Copyright: 2021 Naotoshi Fujita
    */
@@ -1704,12 +1704,12 @@
         const { noDrag } = options;
         const isTouch = isTouchEvent(e);
         const isDraggable = !noDrag || !matches(e.target, noDrag);
+        clickPrevented = false;
         if (isDraggable && (isTouch || !e.button)) {
           if (!Move2.isBusy()) {
             target = isTouch ? track : window;
             prevBaseEvent = null;
             lastEvent = null;
-            clickPrevented = false;
             bind(target, POINTER_MOVE_EVENTS, onPointerMove, SCROLL_LISTENER_OPTIONS);
             bind(target, POINTER_UP_EVENTS, onPointerUp, SCROLL_LISTENER_OPTIONS);
             Move2.cancel();
