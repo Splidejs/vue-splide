@@ -7,7 +7,7 @@ export default defineConfig( {
 		lib: {
 			name    : 'VueSplide',
 			entry   : './src/js/index.ts',
-      formats : [ 'es', 'umd' ],
+      formats : [ 'es', 'cjs' ],
 			fileName: format => {
         let suffix: string = format;
 

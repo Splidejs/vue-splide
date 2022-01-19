@@ -1,4 +1,7 @@
-import { defineComponent, ref, onMounted, onBeforeUnmount, onUpdated, watch, computed, openBlock, createElementBlock, renderSlot, createCommentVNode, createElementVNode, Fragment } from "vue";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports[Symbol.toStringTag] = "Module";
+var vue = require("vue");
 /*!
  * Splide.js
  * Version  : 3.6.11
@@ -80,11 +83,11 @@ function addClass(elm, classes) {
 function append(parent, children2) {
   forEach(children2, parent.appendChild.bind(parent));
 }
-function before(nodes, ref2) {
+function before(nodes, ref) {
   forEach(nodes, (node) => {
-    const parent = ref2.parentNode;
+    const parent = ref.parentNode;
     if (parent) {
-      parent.insertBefore(node, ref2);
+      parent.insertBefore(node, ref);
     }
   });
 }
@@ -873,8 +876,8 @@ function Slides(Splide2, Components2, options) {
         slide = parseHtml(slide);
       }
       if (isHTMLElement(slide)) {
-        const ref2 = slides[index];
-        ref2 ? before(slide, ref2) : append(list, slide);
+        const ref = slides[index];
+        ref ? before(slide, ref) : append(list, slide);
         addClass(slide, options.classes.slide);
         observeImages(slide, emit.bind(null, EVENT_RESIZE));
       }
@@ -1834,7 +1837,7 @@ function Keyboard(Splide2, Components2, options) {
   let disabled;
   function mount() {
     init();
-    on(EVENT_UPDATED, onUpdated2);
+    on(EVENT_UPDATED, onUpdated);
     on(EVENT_MOVE, onMove);
   }
   function init() {
@@ -1865,7 +1868,7 @@ function Keyboard(Splide2, Components2, options) {
       disabled = _disabled;
     });
   }
-  function onUpdated2() {
+  function onUpdated() {
     destroy();
     init();
   }
@@ -2444,7 +2447,7 @@ var _export_sfc = (sfc, props) => {
   }
   return target;
 };
-const _sfc_main$1 = defineComponent({
+const _sfc_main$1 = vue.defineComponent({
   name: "Splide",
   emits: EVENTS.map((event) => `splide:${event}`),
   props: {
@@ -2455,21 +2458,21 @@ const _sfc_main$1 = defineComponent({
   },
   setup(props, context) {
     const { options } = props;
-    const splide = ref();
-    const root = ref();
+    const splide = vue.ref();
+    const root = vue.ref();
     let slides = [];
-    onMounted(() => {
+    vue.onMounted(() => {
       if (root.value) {
         splide.value = new Splide$1(root.value, props.options);
         bind(splide.value);
         splide.value.mount(props.extensions, props.transition);
       }
     });
-    onBeforeUnmount(() => {
+    vue.onBeforeUnmount(() => {
       var _a;
       (_a = splide.value) == null ? void 0 : _a.destroy();
     });
-    onUpdated(() => {
+    vue.onUpdated(() => {
       if (splide.value) {
         const newSlides = getSlides();
         if (!isEqualShallow(slides, newSlides)) {
@@ -2479,17 +2482,17 @@ const _sfc_main$1 = defineComponent({
       }
     });
     if (options) {
-      watch(() => merge({}, options), (options2) => {
+      vue.watch(() => merge({}, options), (options2) => {
         if (splide.value) {
           splide.value.options = options2;
         }
       }, { deep: true });
     }
-    const index = computed(() => {
+    const index = vue.computed(() => {
       var _a;
       return ((_a = splide.value) == null ? void 0 : _a.index) || 0;
     });
-    const length = computed(() => {
+    const length = vue.computed(() => {
       var _a;
       return ((_a = splide.value) == null ? void 0 : _a.length) || 0;
     });
@@ -2539,36 +2542,36 @@ const _hoisted_4 = { class: "splide__list" };
 const _hoisted_5 = { class: "splide__track" };
 const _hoisted_6 = { class: "splide__list" };
 function _sfc_render$1(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createElementBlock("div", _hoisted_1$1, [
-    _ctx.hasSliderWrapper ? renderSlot(_ctx.$slots, "before-slider", { key: 0 }) : createCommentVNode("", true),
-    _ctx.hasSliderWrapper ? (openBlock(), createElementBlock("div", _hoisted_2, [
-      renderSlot(_ctx.$slots, "before-track"),
-      createElementVNode("div", _hoisted_3, [
-        createElementVNode("ul", _hoisted_4, [
-          renderSlot(_ctx.$slots, "default")
+  return vue.openBlock(), vue.createElementBlock("div", _hoisted_1$1, [
+    _ctx.hasSliderWrapper ? vue.renderSlot(_ctx.$slots, "before-slider", { key: 0 }) : vue.createCommentVNode("", true),
+    _ctx.hasSliderWrapper ? (vue.openBlock(), vue.createElementBlock("div", _hoisted_2, [
+      vue.renderSlot(_ctx.$slots, "before-track"),
+      vue.createElementVNode("div", _hoisted_3, [
+        vue.createElementVNode("ul", _hoisted_4, [
+          vue.renderSlot(_ctx.$slots, "default")
         ])
       ]),
-      renderSlot(_ctx.$slots, "after-track")
-    ])) : (openBlock(), createElementBlock(Fragment, { key: 2 }, [
-      renderSlot(_ctx.$slots, "before-track"),
-      createElementVNode("div", _hoisted_5, [
-        createElementVNode("ul", _hoisted_6, [
-          renderSlot(_ctx.$slots, "default")
+      vue.renderSlot(_ctx.$slots, "after-track")
+    ])) : (vue.openBlock(), vue.createElementBlock(vue.Fragment, { key: 2 }, [
+      vue.renderSlot(_ctx.$slots, "before-track"),
+      vue.createElementVNode("div", _hoisted_5, [
+        vue.createElementVNode("ul", _hoisted_6, [
+          vue.renderSlot(_ctx.$slots, "default")
         ])
       ]),
-      renderSlot(_ctx.$slots, "after-track")
+      vue.renderSlot(_ctx.$slots, "after-track")
     ], 64)),
-    _ctx.hasSliderWrapper ? renderSlot(_ctx.$slots, "after-slider", { key: 3 }) : createCommentVNode("", true)
+    _ctx.hasSliderWrapper ? vue.renderSlot(_ctx.$slots, "after-slider", { key: 3 }) : vue.createCommentVNode("", true)
   ], 512);
 }
 var Splide = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["render", _sfc_render$1]]);
-const _sfc_main = defineComponent({
+const _sfc_main = vue.defineComponent({
   name: "SplideSlide"
 });
 const _hoisted_1 = { class: "splide__slide" };
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createElementBlock("li", _hoisted_1, [
-    renderSlot(_ctx.$slots, "default")
+  return vue.openBlock(), vue.createElementBlock("li", _hoisted_1, [
+    vue.renderSlot(_ctx.$slots, "default")
   ]);
 }
 var SplideSlide = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render]]);
@@ -2578,4 +2581,6 @@ const VueSplide = {
     app.component(SplideSlide.name, SplideSlide);
   }
 };
-export { Splide, SplideSlide, VueSplide as default };
+exports.Splide = Splide;
+exports.SplideSlide = SplideSlide;
+exports["default"] = VueSplide;

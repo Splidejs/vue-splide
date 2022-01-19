@@ -1,10 +1,10 @@
 {
   "name": "@splidejs/vue-splide",
-  "version": "0.5.16",
+  "version": "0.5.17",
   "description": "The Splide component for Vue.",
   "author": "Naotoshi Fujita",
   "license": "MIT",
-  "main": "dist/js/vue-splide.umd.js",
+  "main": "dist/js/vue-splide.cjs.js",
   "module": "dist/js/vue-splide.esm.js",
   "types": "src/js/index.ts",
   "keywords": [
@@ -25,7 +25,7 @@
     "url": "https://github.com/Splidejs/vue-splide/issues"
   },
   "dependencies": {
-    "@splidejs/splide": "^3.6.10"
+    "@splidejs/splide": "^3.6.11"
   },
   "devDependencies": {
     "@types/jest": "^27.0.3",
