@@ -62,6 +62,12 @@ export default defineComponent( {
 Visit [here](https://splidejs.com/integration/vue-splide/) for more details.
 
 
+## Support Splide
+
+Please support the project if you like it!
+- [GitHub Sponsors](https://github.com/sponsors/NaotoshiFujita)
+
+
 ## License
 Vue Splide and Splide are released under the MIT license.
 © 2021 Naotoshi Fujita
