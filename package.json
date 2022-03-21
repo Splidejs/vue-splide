@@ -1,6 +1,6 @@
 {
   "name": "@splidejs/vue-splide",
-  "version": "0.5.18",
+  "version": "0.6.0",
   "description": "The Splide component for Vue.",
   "author": "Naotoshi Fujita",
   "license": "MIT",
@@ -25,7 +25,7 @@
     "url": "https://github.com/Splidejs/vue-splide/issues"
   },
   "dependencies": {
-    "@splidejs/splide": "^3.6.12"
+    "@splidejs/splide": "github:Splidejs/splide#dev"
   },
   "devDependencies": {
     "@types/jest": "^27.4.0",
@@ -34,6 +34,7 @@
     "@vitejs/plugin-vue": "^2.1.0",
     "eslint": "^8.7.0",
     "eslint-plugin-vue": "^8.3.0",
+    "fs-extra": "^10.0.1",
     "gh-pages": "^3.2.3",
     "jest": "^27.4.7",
     "ts-jest": "^27.1.3",
@@ -46,9 +47,15 @@
     "develop": "vite build",
     "check:type": "vue-tsc --noEmit",
     "build": "vite build --watch false",
-    "build:all": "npm run check:type && npm run build",
+    "build:all": "npm run check:type && npm run build && node scripts/copy-css.js",
     "test": "jest",
     "eslint": "eslint src",
     "deploy": "gh-pages -d examples/dist"
+  },
+  "exports": {
+    ".": "./dist/js/vue-splide.esm.js",
+    "./css": "./dist/css/splide.min.css",
+    "./css/core": "./dist/css/splide-core.min.css",
+    "./css/*": "./dist/css/themes/splide-*.min.css"
   }
 }

@@ -1,32 +1,10 @@
 <template>
   <div class="splide" ref="root">
-    <slot v-if="hasSliderWrapper" name="before-slider"></slot>
+    <SplideTrack v-if="hasTrack">
+      <slot></slot>
+    </SplideTrack>
 
-    <div v-if="hasSliderWrapper" class="splide__slider">
-      <slot name="before-track"></slot>
-
-      <div class="splide__track">
-        <ul class="splide__list">
-          <slot></slot>
-        </ul>
-      </div>
-
-      <slot name="after-track"></slot>
-    </div>
-
-    <template v-else>
-      <slot name="before-track"></slot>
-
-      <div class="splide__track">
-        <ul class="splide__list">
-          <slot></slot>
-        </ul>
-      </div>
-
-      <slot name="after-track"></slot>
-    </template>
-
-    <slot v-if="hasSliderWrapper" name="after-slider"></slot>
+    <slot v-else></slot>
   </div>
 </template>
 
@@ -35,6 +13,7 @@ import { ComponentConstructor, Options, Splide } from '@splidejs/splide';
 import { computed, defineComponent, onBeforeUnmount, onMounted, onUpdated, PropType, ref, watch } from 'vue';
 import { EVENTS } from '../../constants/events';
 import { isEqualShallow, merge } from '../../utils';
+import SplideTrack from '../SplideTrack/SplideTrack.vue';
 
 
 /**
@@ -45,6 +24,7 @@ import { isEqualShallow, merge } from '../../utils';
 export default defineComponent( {
   name: 'Splide',
   emits: EVENTS.map( event => `splide:${ event }` ),
+  components: { SplideTrack },
 
   props: {
     /**
@@ -63,9 +43,12 @@ export default defineComponent( {
     transition: Function as PropType<ComponentConstructor>,
 
     /**
-     * Determines whether to use a slider element or not.
+     * Determines whether to render a track element or not.
      */
-    hasSliderWrapper: Boolean,
+    hasTrack: {
+      default: true,
+      type   : Boolean,
+    },
   },
 
   setup( props, context ) {

@@ -4,5 +4,6 @@ import App from './App.vue';
 
 
 const app = createApp( App );
+// For global install
 // app.use( VueSplide );
 app.mount( '#app' );

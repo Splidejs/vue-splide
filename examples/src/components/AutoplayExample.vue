@@ -4,30 +4,31 @@
 
     <Splide
       :options="options"
-      has-slider-wrapper
+      :has-track="false"
     >
-      <SplideSlide v-for="slide in slides" :key="slide.alt">
-        <img :src="slide.src" :alt="slide.alt">
-      </SplideSlide>
+      <div style="position: relative">
+        <SplideTrack>
+          <SplideSlide v-for="slide in slides" :key="slide.alt">
+            <img :src="slide.src" :alt="slide.alt">
+          </SplideSlide>
+        </SplideTrack>
+      </div>
 
-      <template #after-slider>
-        <div class="splide__progress">
-          <div class="splide__progress__bar">
-          </div>
+      <div class="splide__progress">
+        <div class="splide__progress__bar">
         </div>
+      </div>
 
-        <div class="splide__autoplay">
-          <button class="splide__play">Play</button>
-          <button class="splide__pause">Pause</button>
-        </div>
-      </template>
+      <button class="splide__toggle">
+        <span class="splide__toggle__play">Play</span>
+        <span class="splide__toggle__pause">Pause</span>
+      </button>
     </Splide>
   </div>
 </template>
 
 <script lang="ts">
-import { Options } from '@splidejs/splide';
-import { Splide, SplideSlide } from '@splidejs/vue-splide';
+import { Splide, SplideSlide, SplideTrack, Options } from '@splidejs/vue-splide';
 import { defineComponent } from 'vue';
 import { generateSlides } from '../utils';
 
@@ -36,6 +37,7 @@ export default defineComponent( {
 
   components: {
     Splide,
+    SplideTrack,
     SplideSlide,
   },
 
@@ -46,7 +48,6 @@ export default defineComponent( {
       gap         : '1rem',
       autoplay    : true,
       pauseOnHover: false,
-      arrows      : 'slider',
       height      : '15rem',
     };
 

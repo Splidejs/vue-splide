@@ -16,8 +16,7 @@
 </template>
 
 <script lang="ts">
-import { Options } from '@splidejs/splide';
-import { Splide, SplideSlide } from '@splidejs/vue-splide';
+import { Splide, SplideSlide, Options } from '@splidejs/vue-splide';
 import { defineComponent, ref } from 'vue';
 import { generateSlides } from '../utils';
 

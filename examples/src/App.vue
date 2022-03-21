@@ -19,6 +19,7 @@ import DynamicSlidesExample from './components/DynamicSlideExample.vue';
 import ReactivityExample from './components/ReactivityExample.vue';
 import ThumbnailsExample from './components/ThumbnailsExample.vue';
 import VideoExample from './components/VideoExample.vue';
+import '@splidejs/vue-splide/css';
 </script>
 
 <style>
