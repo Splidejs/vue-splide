@@ -1,8 +1,9 @@
 <template>
   <div class="wrapper">
-    <h2>Basic</h2>
+    <h2 id="basic-example-heading">Basic</h2>
 
     <Splide
+      aria-labelledby="basic-example-heading"
       v-if="enabled"
       :options="options"
       @splide:mounted="onSplideMounted"

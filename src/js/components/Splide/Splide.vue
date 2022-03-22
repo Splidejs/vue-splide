@@ -1,11 +1,11 @@
 <template>
-  <div class="splide" ref="root">
+  <component :is="is" class="splide" ref="root">
     <SplideTrack v-if="hasTrack">
       <slot></slot>
     </SplideTrack>
 
     <slot v-else></slot>
-  </div>
+  </component>
 </template>
 
 <script lang="ts">
@@ -27,6 +27,14 @@ export default defineComponent( {
   components: { SplideTrack },
 
   props: {
+    /**
+     * Changes the tag name.
+     */
+    is: {
+      default: 'div',
+      type   : String,
+    },
+
     /**
      * Options for Splide instance.
      */

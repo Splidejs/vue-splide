@@ -1,8 +1,8 @@
 <template>
   <div class="wrapper">
-    <h2>Dynamic Slides</h2>
+    <h2 id="dynamic-slides-example-heading">Dynamic Slides</h2>
 
-    <Splide :options="options" class="splide--dynamic">
+    <Splide :options="options" class="splide--dynamic" aria-labelledby="dynamic-slides-example-heading">
       <SplideSlide v-for="slide in slides" :key="slide.alt">
         <img :src="slide.src" :alt="slide.alt">
       </SplideSlide>

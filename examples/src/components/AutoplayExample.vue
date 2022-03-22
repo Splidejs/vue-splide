@@ -1,8 +1,9 @@
 <template>
   <div class="wrapper">
-    <h2>Autoplay</h2>
+    <h2 id="autoplay-example-heading">Autoplay</h2>
 
     <Splide
+      aria-labelledby="autoplay-example-heading"
       :options="options"
       :has-track="false"
     >

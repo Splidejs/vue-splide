@@ -1,8 +1,9 @@
 <template>
   <div class="wrapper">
-    <h2>Video</h2>
+    <h2 id="video-example-heading">Video</h2>
 
     <Splide
+      aria-labelledby="video-example-heading"
       :options="options"
       :extensions="extensions"
     >

@@ -1,8 +1,10 @@
 <template>
   <div class="wrapper">
-    <h2>Thumbnails</h2>
+    <h2 id="thumbnail-example-heading">Thumbnails</h2>
 
     <Splide
+      aria-labelledby="thumbnail-example-heading"
+      :is="'section'"
       :options="mainOptions"
       ref="main"
     >
@@ -12,6 +14,7 @@
     </Splide>
 
     <Splide
+      aria-label="The carousel with thumbnails. Selecting a thumbnail will change the main carousel"
       :options="thumbsOptions"
       ref="thumbs"
     >

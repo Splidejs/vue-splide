@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <h2>Reactivity Example</h2>
+    <h2 id="reactivity-example-heading">Reactivity Example</h2>
 
     <div style="margin-bottom: 1rem">
       <label>
@@ -27,7 +27,7 @@
       </label>
     </div>
 
-    <Splide :options="options">
+    <Splide :options="options" aria-labelledby="reactivity-example-heading">
       <SplideSlide v-for="slide in slides" :key="slide.alt">
         <img :src="slide.src" :alt="slide.alt">
       </SplideSlide>
