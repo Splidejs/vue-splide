@@ -1,18 +1,19 @@
 <template>
-  <component :is="is" class="splide" ref="root">
+  <div class="splide" ref="root" >
     <SplideTrack v-if="hasTrack">
       <slot></slot>
     </SplideTrack>
 
     <slot v-else></slot>
-  </component>
+  </div>
 </template>
 
 <script lang="ts">
 import { ComponentConstructor, Options, Splide } from '@splidejs/splide';
-import { computed, defineComponent, onBeforeUnmount, onMounted, onUpdated, PropType, ref, watch } from 'vue';
+import { computed, defineComponent, onBeforeUnmount, onMounted, PropType, provide, Ref, ref, watch } from 'vue';
 import { EVENTS } from '../../constants/events';
-import { isEqualShallow, merge } from '../../utils';
+import { SPLIDE_INJECTION_KEY } from '../../constants/keys';
+import { merge } from '../../utils';
 import SplideTrack from '../SplideTrack/SplideTrack.vue';
 
 
@@ -63,7 +64,6 @@ export default defineComponent( {
     const { options } = props;
     const splide = ref<Splide>();
     const root   = ref<HTMLElement>();
-    let slides: HTMLElement[] = [];
 
     onMounted( () => {
       if ( root.value ) {
@@ -77,17 +77,6 @@ export default defineComponent( {
       splide.value?.destroy();
     } );
 
-    onUpdated( () => {
-      if ( splide.value ) {
-        const newSlides = getSlides();
-
-        if ( ! isEqualShallow( slides, newSlides ) ) {
-          splide.value.refresh();
-          slides = newSlides;
-        }
-      }
-    } );
-
     if ( options ) {
       watch( () => merge( {}, options ), options => {
         if ( splide.value ) {
@@ -95,6 +84,8 @@ export default defineComponent( {
         }
       }, { deep: true } );
     }
+
+    provide<Ref<Splide | undefined>>( SPLIDE_INJECTION_KEY, splide );
 
     /**
      * Returns the current index.
@@ -139,22 +130,6 @@ export default defineComponent( {
           context.emit( `splide:${ event }`, splide, ...args );
         } );
       } );
-    }
-
-    /**
-     * Returns an array with slide elements.
-     *
-     * @private
-     *
-     * @return An array with slide elements.
-     */
-    function getSlides(): HTMLElement[] {
-      if ( splide.value ) {
-        const children = splide.value.Components.Elements?.list.children;
-        return children && Array.prototype.slice.call( children ) || [];
-      }
-
-      return [];
     }
 
     return {

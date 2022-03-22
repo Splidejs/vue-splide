@@ -1,4 +1,4 @@
-import { defineComponent, openBlock, createElementBlock, createElementVNode, renderSlot, ref, onMounted, onBeforeUnmount, onUpdated, watch, computed, resolveComponent, createBlock, resolveDynamicComponent, withCtx } from "vue";
+import { defineComponent, onUpdated, inject, openBlock, createElementBlock, createElementVNode, renderSlot, ref, onMounted, onBeforeUnmount, watch, provide, computed, resolveComponent, createBlock, withCtx } from "vue";
 function _defineProperties(target, props) {
   for (var i = 0; i < props.length; i++) {
     var descriptor = props[i];
@@ -2548,9 +2548,7 @@ const EVENTS = [
   EVENT_UPDATED,
   EVENT_VISIBLE
 ];
-function isEqualShallow(array1, array2) {
-  return array1.length === array2.length && !array1.some((elm, index) => elm !== array2[index]);
-}
+const SPLIDE_INJECTION_KEY = "splide";
 function isObject(subject) {
   return subject !== null && typeof subject === "object";
 }
@@ -2589,12 +2587,19 @@ var _export_sfc = (sfc, props) => {
   return target;
 };
 const _sfc_main$2 = defineComponent({
-  name: "SplideTrack"
+  name: "SplideTrack",
+  setup() {
+    onUpdated(() => {
+      var _a;
+      const splide = inject(SPLIDE_INJECTION_KEY);
+      (_a = splide == null ? void 0 : splide.value) == null ? void 0 : _a.refresh();
+    });
+  }
 });
-const _hoisted_1$1 = { class: "splide__track" };
+const _hoisted_1$2 = { class: "splide__track" };
 const _hoisted_2 = { class: "splide__list" };
 function _sfc_render$2(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createElementBlock("div", _hoisted_1$1, [
+  return openBlock(), createElementBlock("div", _hoisted_1$2, [
     createElementVNode("ul", _hoisted_2, [
       renderSlot(_ctx.$slots, "default")
     ])
@@ -2622,7 +2627,6 @@ const _sfc_main$1 = defineComponent({
     const { options } = props;
     const splide = ref();
     const root = ref();
-    let slides = [];
     onMounted(() => {
       if (root.value) {
         splide.value = new Splide$1(root.value, props.options);
@@ -2634,15 +2638,6 @@ const _sfc_main$1 = defineComponent({
       var _a;
       (_a = splide.value) == null ? void 0 : _a.destroy();
     });
-    onUpdated(() => {
-      if (splide.value) {
-        const newSlides = getSlides();
-        if (!isEqualShallow(slides, newSlides)) {
-          splide.value.refresh();
-          slides = newSlides;
-        }
-      }
-    });
     if (options) {
       watch(() => merge({}, options), (options2) => {
         if (splide.value) {
@@ -2650,6 +2645,7 @@ const _sfc_main$1 = defineComponent({
         }
       }, { deep: true });
     }
+    provide(SPLIDE_INJECTION_KEY, splide);
     const index = computed(() => {
       var _a;
       return ((_a = splide.value) == null ? void 0 : _a.index) || 0;
@@ -2673,14 +2669,6 @@ const _sfc_main$1 = defineComponent({
         });
       });
     }
-    function getSlides() {
-      var _a;
-      if (splide.value) {
-        const children2 = (_a = splide.value.Components.Elements) == null ? void 0 : _a.list.children;
-        return children2 && Array.prototype.slice.call(children2) || [];
-      }
-      return [];
-    }
     return {
       splide,
       root,
@@ -2691,22 +2679,20 @@ const _sfc_main$1 = defineComponent({
     };
   }
 });
+const _hoisted_1$1 = {
+  class: "splide",
+  ref: "root"
+};
 function _sfc_render$1(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_SplideTrack = resolveComponent("SplideTrack");
-  return openBlock(), createBlock(resolveDynamicComponent(_ctx.is), {
-    class: "splide",
-    ref: "root"
-  }, {
-    default: withCtx(() => [
-      _ctx.hasTrack ? (openBlock(), createBlock(_component_SplideTrack, { key: 0 }, {
-        default: withCtx(() => [
-          renderSlot(_ctx.$slots, "default")
-        ]),
-        _: 3
-      })) : renderSlot(_ctx.$slots, "default", { key: 1 })
-    ]),
-    _: 3
-  }, 512);
+  return openBlock(), createElementBlock("div", _hoisted_1$1, [
+    _ctx.hasTrack ? (openBlock(), createBlock(_component_SplideTrack, { key: 0 }, {
+      default: withCtx(() => [
+        renderSlot(_ctx.$slots, "default")
+      ]),
+      _: 3
+    })) : renderSlot(_ctx.$slots, "default", { key: 1 })
+  ], 512);
 }
 var Splide = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["render", _sfc_render$1]]);
 const _sfc_main = defineComponent({

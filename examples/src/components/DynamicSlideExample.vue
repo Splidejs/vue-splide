@@ -2,21 +2,30 @@
   <div class="wrapper">
     <h2 id="dynamic-slides-example-heading">Dynamic Slides</h2>
 
-    <Splide :options="options" class="splide--dynamic" aria-labelledby="dynamic-slides-example-heading">
-      <SplideSlide v-for="slide in slides" :key="slide.alt">
-        <img :src="slide.src" :alt="slide.alt">
-      </SplideSlide>
-    </Splide>
+    <Splide
+      class="splide--dynamic"
+      aria-labelledby="dynamic-slides-example-heading"
+      :options="options"
+      :has-track="false"
+    >
+      <div style="position: relative">
+        <SplideTrack>
+          <SplideSlide v-for="slide in slides" :key="slide.alt">
+            <img :src="slide.src" :alt="slide.alt">
+          </SplideSlide>
+        </SplideTrack>
+      </div>
 
-    <div class="controls">
-      <button @click="add">Add</button>
-      <button @click="remove">Remove</button>
-    </div>
+      <div class="controls">
+        <button @click="add">Add</button>
+        <button @click="remove">Remove</button>
+      </div>
+    </Splide>
   </div>
 </template>
 
 <script lang="ts">
-import { Splide, SplideSlide, Options } from '@splidejs/vue-splide';
+import { Options, Splide, SplideSlide, SplideTrack } from '@splidejs/vue-splide';
 import { defineComponent, ref } from 'vue';
 import { generateSlides } from '../utils';
 
@@ -26,6 +35,7 @@ export default defineComponent( {
 
   components: {
     Splide,
+    SplideTrack,
     SplideSlide,
   },
 
