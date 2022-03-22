@@ -10,7 +10,7 @@
 
 <script lang="ts">
 import { ComponentConstructor, Options, Splide } from '@splidejs/splide';
-import { computed, defineComponent, onBeforeUnmount, onMounted, PropType, provide, Ref, ref, watch } from 'vue';
+import { computed, defineComponent, onBeforeUnmount, onMounted, PropType, provide, Ref, ref, watch, onUpdated } from 'vue';
 import { EVENTS } from '../../constants/events';
 import { SPLIDE_INJECTION_KEY } from '../../constants/keys';
 import { merge } from '../../utils';
@@ -39,7 +39,10 @@ export default defineComponent( {
     /**
      * Options for Splide instance.
      */
-    options: Object as PropType<Options>,
+    options: {
+      default: {},
+      type   : Object as PropType<Options>,
+    },
 
     /**
      * Registers extension components.
@@ -61,7 +64,6 @@ export default defineComponent( {
   },
 
   setup( props, context ) {
-    const { options } = props;
     const splide = ref<Splide>();
     const root   = ref<HTMLElement>();
 
@@ -77,13 +79,11 @@ export default defineComponent( {
       splide.value?.destroy();
     } );
 
-    if ( options ) {
-      watch( () => merge( {}, options ), options => {
-        if ( splide.value ) {
-          splide.value.options = options;
-        }
-      }, { deep: true } );
-    }
+    watch( () => merge( {}, props.options ), options => {
+      if ( splide.value ) {
+        splide.value.options = options;
+      }
+    }, { deep: true } );
 
     provide<Ref<Splide | undefined>>( SPLIDE_INJECTION_KEY, splide );
 

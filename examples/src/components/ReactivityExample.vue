@@ -36,8 +36,8 @@
 </template>
 
 <script lang="ts">
-import { Splide, SplideSlide, Options } from '@splidejs/vue-splide';
-import { defineComponent, reactive } from 'vue';
+import { Options, Splide, SplideSlide } from '@splidejs/vue-splide';
+import { defineComponent, reactive, ref } from 'vue';
 import { generateSlides } from '../utils';
 
 

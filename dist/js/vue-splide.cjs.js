@@ -2618,7 +2618,10 @@ const _sfc_main$1 = vue.defineComponent({
       default: "div",
       type: String
     },
-    options: Object,
+    options: {
+      default: {},
+      type: Object
+    },
     extensions: Object,
     transition: Function,
     hasTrack: {
@@ -2627,7 +2630,6 @@ const _sfc_main$1 = vue.defineComponent({
     }
   },
   setup(props, context) {
-    const { options } = props;
     const splide = vue.ref();
     const root = vue.ref();
     vue.onMounted(() => {
@@ -2641,13 +2643,11 @@ const _sfc_main$1 = vue.defineComponent({
       var _a;
       (_a = splide.value) == null ? void 0 : _a.destroy();
     });
-    if (options) {
-      vue.watch(() => merge({}, options), (options2) => {
-        if (splide.value) {
-          splide.value.options = options2;
-        }
-      }, { deep: true });
-    }
+    vue.watch(() => merge({}, props.options), (options) => {
+      if (splide.value) {
+        splide.value.options = options;
+      }
+    }, { deep: true });
     vue.provide(SPLIDE_INJECTION_KEY, splide);
     const index = vue.computed(() => {
       var _a;

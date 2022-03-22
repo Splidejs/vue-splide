@@ -2615,7 +2615,10 @@ const _sfc_main$1 = defineComponent({
       default: "div",
       type: String
     },
-    options: Object,
+    options: {
+      default: {},
+      type: Object
+    },
     extensions: Object,
     transition: Function,
     hasTrack: {
@@ -2624,7 +2627,6 @@ const _sfc_main$1 = defineComponent({
     }
   },
   setup(props, context) {
-    const { options } = props;
     const splide = ref();
     const root = ref();
     onMounted(() => {
@@ -2638,13 +2640,11 @@ const _sfc_main$1 = defineComponent({
       var _a;
       (_a = splide.value) == null ? void 0 : _a.destroy();
     });
-    if (options) {
-      watch(() => merge({}, options), (options2) => {
-        if (splide.value) {
-          splide.value.options = options2;
-        }
-      }, { deep: true });
-    }
+    watch(() => merge({}, props.options), (options) => {
+      if (splide.value) {
+        splide.value.options = options;
+      }
+    }, { deep: true });
     provide(SPLIDE_INJECTION_KEY, splide);
     const index = computed(() => {
       var _a;
