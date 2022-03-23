@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "@splidejs/splide": "github:Splidejs/splide#dev",
     "@splidejs/splide-extension-video": "^0.6.7",
     "@splidejs/vue-splide": "file:..",
-    "vue": "^3.2.31"
+    "vue": "^3.2.23"
   },
   "devDependencies": {
     "@types/node": "^16.11.9",

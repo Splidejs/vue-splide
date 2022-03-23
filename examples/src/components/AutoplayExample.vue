@@ -45,11 +45,10 @@ export default defineComponent( {
   setup() {
     const slides = generateSlides();
     const options: Options = {
-      rewind      : true,
-      gap         : '1rem',
-      autoplay    : true,
-      pauseOnHover: false,
-      height      : '15rem',
+      rewind  : true,
+      gap     : '1rem',
+      autoplay: true,
+      height  : '15rem',
     };
 
     return {

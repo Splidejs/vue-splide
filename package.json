@@ -24,8 +24,10 @@
   "bugs": {
     "url": "https://github.com/Splidejs/vue-splide/issues"
   },
+  "dependencies": {
+    "@splidejs/splide": "github:Splidejs/splide#dev"
+  },
   "devDependencies": {
-    "@splidejs/splide": "github:Splidejs/splide#dev",
     "@types/jest": "^27.4.0",
     "@typescript-eslint/eslint-plugin": "^5.10.0",
     "@typescript-eslint/parser": "^5.10.0",

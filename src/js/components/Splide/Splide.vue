@@ -10,7 +10,7 @@
 
 <script lang="ts">
 import { ComponentConstructor, Options, Splide } from '@splidejs/splide';
-import { computed, defineComponent, onBeforeUnmount, onMounted, PropType, provide, Ref, ref, watch, onUpdated } from 'vue';
+import { computed, defineComponent, onBeforeUnmount, onMounted, PropType, provide, Ref, ref, watch } from 'vue';
 import { EVENTS } from '../../constants/events';
 import { SPLIDE_INJECTION_KEY } from '../../constants/keys';
 import { merge } from '../../utils';
