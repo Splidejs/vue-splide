@@ -1,4 +1,4 @@
-import { defineComponent, onUpdated, inject, openBlock, createElementBlock, createElementVNode, renderSlot, ref, onMounted, onBeforeUnmount, watch, provide, computed, resolveComponent, createBlock, withCtx } from "vue";
+import { defineComponent, onUpdated, inject, openBlock, createElementBlock, createElementVNode, renderSlot, ref, onMounted, onBeforeUnmount, watch, provide, computed, resolveComponent, createBlock, resolveDynamicComponent, withCtx } from "vue";
 function _defineProperties(target, props) {
   for (var i = 0; i < props.length; i++) {
     var descriptor = props[i];
@@ -2596,10 +2596,10 @@ const _sfc_main$2 = defineComponent({
     });
   }
 });
-const _hoisted_1$2 = { class: "splide__track" };
+const _hoisted_1$1 = { class: "splide__track" };
 const _hoisted_2 = { class: "splide__list" };
 function _sfc_render$2(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createElementBlock("div", _hoisted_1$2, [
+  return openBlock(), createElementBlock("div", _hoisted_1$1, [
     createElementVNode("ul", _hoisted_2, [
       renderSlot(_ctx.$slots, "default")
     ])
@@ -2611,7 +2611,7 @@ const _sfc_main$1 = defineComponent({
   emits: EVENTS.map((event) => `splide:${event}`),
   components: { SplideTrack },
   props: {
-    is: {
+    tag: {
       default: "div",
       type: String
     },
@@ -2679,20 +2679,22 @@ const _sfc_main$1 = defineComponent({
     };
   }
 });
-const _hoisted_1$1 = {
-  class: "splide",
-  ref: "root"
-};
 function _sfc_render$1(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_SplideTrack = resolveComponent("SplideTrack");
-  return openBlock(), createElementBlock("div", _hoisted_1$1, [
-    _ctx.hasTrack ? (openBlock(), createBlock(_component_SplideTrack, { key: 0 }, {
-      default: withCtx(() => [
-        renderSlot(_ctx.$slots, "default")
-      ]),
-      _: 3
-    })) : renderSlot(_ctx.$slots, "default", { key: 1 })
-  ], 512);
+  return openBlock(), createBlock(resolveDynamicComponent(_ctx.tag), {
+    class: "splide",
+    ref: "root"
+  }, {
+    default: withCtx(() => [
+      _ctx.hasTrack ? (openBlock(), createBlock(_component_SplideTrack, { key: 0 }, {
+        default: withCtx(() => [
+          renderSlot(_ctx.$slots, "default")
+        ]),
+        _: 3
+      })) : renderSlot(_ctx.$slots, "default", { key: 1 })
+    ]),
+    _: 3
+  }, 512);
 }
 var Splide = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["render", _sfc_render$1]]);
 const _sfc_main = defineComponent({
