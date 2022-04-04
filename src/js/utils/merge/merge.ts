@@ -5,17 +5,15 @@ import { isObject } from '../isObject/isObject';
 /**
  * Merges U to T.
  *
- * @typeParam T - An object to merge to.
- * @typeParam U - An object to to.
+ * @typeParam T - An object to merge U into.
+ * @typeParam U - An object to merge properties from.
  *
  * @return An merged object type.
  */
 export type Merge<T extends object, U extends object> = Omit<T, keyof U> & {
   [ K in ( keyof T & keyof U ) ]: U[ K ] extends object
     ? U[ K ] extends any[]
-      ? T[ K ] extends any[]
-        ? Array<T[ K ][ number ] | U[ K ][ number ]>
-        : U[ K ]
+      ? U[ K ]
       : T[ K ] extends object
         ? Merge<T[ K ], U[ K ]> extends infer A ? Cast<A, object> : never
         : U[ K ]
