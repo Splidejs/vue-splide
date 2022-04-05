@@ -51,7 +51,7 @@ Import CSS and components:
 <script>
 import { Splide, SplideSlide } from '@splidejs/vue-splide';
 import { defineComponent } from 'vue';
-import '@splidejs/splide/dist/css/themes/splide-default.min.css';
+import '@splidejs/vue-splide/css';
 
 export default defineComponent( {
   components: { Splide, SplideSlide },
