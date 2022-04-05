@@ -24,9 +24,6 @@
   "bugs": {
     "url": "https://github.com/Splidejs/vue-splide/issues"
   },
-  "dependencies": {
-    "@splidejs/splide": "github:Splidejs/splide"
-  },
   "devDependencies": {
     "@types/jest": "^27.4.1",
     "@typescript-eslint/eslint-plugin": "^5.17.0",
@@ -57,5 +54,8 @@
     "./css": "./dist/css/splide.min.css",
     "./css/core": "./dist/css/splide-core.min.css",
     "./css/*": "./dist/css/themes/splide-*.min.css"
+  },
+  "dependencies": {
+    "@splidejs/splide": "^4.0.0"
   }
 }

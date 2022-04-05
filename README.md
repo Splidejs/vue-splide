@@ -38,7 +38,7 @@ Import CSS and components:
 
 ```vue
 <template>
-  <Splide :options="{ rewind: true }">
+  <Splide :options="{ rewind: true }" aria-label="Vue Splide Example">
     <SplideSlide>
       <img src="image1.jpg" alt="Sample 1">
     </SplideSlide>
@@ -70,4 +70,4 @@ Please support the project if you like it!
 
 ## License
 Vue Splide and Splide are released under the MIT license.
-© 2021 Naotoshi Fujita
+© 2022 Naotoshi Fujita
