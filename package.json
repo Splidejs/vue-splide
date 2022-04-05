@@ -50,7 +50,11 @@
     "deploy": "gh-pages -d examples/dist"
   },
   "exports": {
-    ".": "./dist/js/vue-splide.esm.js",
+    ".": {
+      "require": "./dist/js/vue-splide.cjs.js",
+      "import": "./dist/js/vue-splide.esm.js",
+      "default": "./dist/js/vue-splid.esm.js"
+    },
     "./css": "./dist/css/splide.min.css",
     "./css/core": "./dist/css/splide-core.min.css",
     "./css/*": "./dist/css/themes/splide-*.min.css"
