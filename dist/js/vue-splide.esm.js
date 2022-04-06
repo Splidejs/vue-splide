@@ -19,7 +19,7 @@ function _createClass(Constructor, protoProps, staticProps) {
 }
 /*!
  * Splide.js
- * Version  : 4.0.0
+ * Version  : 4.0.1
  * License  : MIT
  * Copyright: 2022 Naotoshi Fujita
  */
@@ -149,7 +149,7 @@ function merge$1(object) {
       if (isArray(value)) {
         object[key] = value.slice();
       } else if (isObject$1(value)) {
-        object[key] = merge$1(isObject$1(object[key]) ? object[key] : {}, value);
+        object[key] = merge$1({}, isObject$1(object[key]) ? object[key] : {}, value);
       } else {
         object[key] = value;
       }
@@ -477,9 +477,10 @@ function Throttle(func, duration) {
   return throttled;
 }
 function Media(Splide2, Components2, options) {
+  var state = Splide2.state;
+  var breakpoints = options.breakpoints || {};
   var reducedMotion = options.reducedMotion || {};
   var binder = EventBinder();
-  var breakpoints = options.breakpoints || {};
   var queries = [];
   function setup() {
     var isMin = options.mediaQuery === "min";
@@ -502,13 +503,13 @@ function Media(Splide2, Components2, options) {
     queries.push([options2, queryList]);
   }
   function update() {
-    var destroyed = Splide2.state.is(DESTROYED);
+    var destroyed = state.is(DESTROYED);
     var direction = options.direction;
     var merged = queries.reduce(function(merged2, entry) {
       return merge$1(merged2, entry[1].matches ? entry[0] : {});
     }, {});
     omit(options);
-    Splide2.options = merged;
+    set(merged);
     if (options.destroy) {
       Splide2.destroy(options.destroy === "completely");
     } else if (destroyed) {
@@ -523,10 +524,18 @@ function Media(Splide2, Components2, options) {
       enable ? merge$1(options, reducedMotion) : omit(options, ownKeys(reducedMotion));
     }
   }
+  function set(opts, user) {
+    merge$1(options, opts);
+    user && merge$1(Object.getPrototypeOf(options), opts);
+    if (!state.is(CREATED)) {
+      Splide2.emit(EVENT_UPDATED, options);
+    }
+  }
   return {
     setup,
     destroy,
-    reduce
+    reduce,
+    set
   };
 }
 var ARROW = "Arrow";
@@ -2019,12 +2028,12 @@ function Pagination(Splide2, Components2, options) {
   }
   function destroy() {
     if (list) {
-      event.destroy();
       remove(Elements2.pagination ? slice(list.children) : list);
       removeClass(list, paginationClasses);
       empty(items);
       list = null;
     }
+    event.destroy();
   }
   function createPagination() {
     var length = Splide2.length;
@@ -2121,11 +2130,12 @@ function Pagination(Splide2, Components2, options) {
 }
 var TRIGGER_KEYS = [" ", "Enter"];
 function Sync(Splide2, Components2, options) {
-  var isNavigation = options.isNavigation;
+  var isNavigation = options.isNavigation, slideFocus = options.slideFocus;
   var events = [];
   function setup() {
-    var slideFocus = options.slideFocus;
-    options.slideFocus = isUndefined(slideFocus) ? isNavigation : slideFocus;
+    Splide2.options = {
+      slideFocus: isUndefined(slideFocus) ? isNavigation : slideFocus
+    };
   }
   function mount() {
     Splide2.splides.forEach(function(target) {
@@ -2499,11 +2509,7 @@ var _Splide = /* @__PURE__ */ function() {
       return this._o;
     },
     set: function set(options) {
-      var _o = this._o;
-      merge$1(_o, options);
-      if (!this.state.is(CREATED)) {
-        this.emit(EVENT_UPDATED, _o);
-      }
+      this._C.Media.set(options, true);
     }
   }, {
     key: "length",
