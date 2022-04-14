@@ -4,7 +4,6 @@
 
     <Splide
       aria-labelledby="thumbnail-example-heading"
-      :is="'section'"
       :options="mainOptions"
       ref="main"
     >
