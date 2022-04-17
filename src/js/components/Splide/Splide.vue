@@ -24,7 +24,7 @@ import SplideTrack from '../SplideTrack/SplideTrack.vue';
  */
 export default defineComponent( {
   name: 'Splide',
-  emits: EVENTS.map( event => `splide:${ event }` ),
+  emits: EVENTS.map<`splide:${typeof EVENTS[number]}`>( event => `splide:${ event }` ),
   components: { SplideTrack },
 
   props: {
