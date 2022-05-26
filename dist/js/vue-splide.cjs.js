@@ -21,7 +21,7 @@ function _createClass(Constructor, protoProps, staticProps) {
 }
 /*!
  * Splide.js
- * Version  : 4.0.2
+ * Version  : 4.0.3
  * License  : MIT
  * Copyright: 2022 Naotoshi Fujita
  */
@@ -587,7 +587,8 @@ var ARIA_HIDDEN = ARIA_PREFIX + "hidden";
 var ARIA_ORIENTATION = ARIA_PREFIX + "orientation";
 var ARIA_ROLEDESCRIPTION = ARIA_PREFIX + "roledescription";
 var ARIA_LIVE = ARIA_PREFIX + "live";
-var ARIA_RELEVANT = ARIA_PREFIX + "relevant";
+var ARIA_BUSY = ARIA_PREFIX + "busy";
+var ARIA_ATOMIC = ARIA_PREFIX + "atomic";
 var ALL_ATTRIBUTES = [ROLE, TAB_INDEX, DISABLED, ARIA_CONTROLS, ARIA_CURRENT, ARIA_LABEL, ARIA_LABELLEDBY, ARIA_HIDDEN, ARIA_ORIENTATION, ARIA_ROLEDESCRIPTION];
 var CLASS_ROOT = PROJECT_CODE;
 var CLASS_TRACK = PROJECT_CODE + "__track";
@@ -1170,9 +1171,10 @@ function Move(Splide2, Components2, options) {
   }
   function move(dest, index, prev, callback) {
     var position = getPosition();
-    if (dest !== index && canShift(dest > index)) {
+    var crossing = sign(dest - prev) * orient(toPosition(dest) - position) < 0;
+    if ((dest !== index || crossing) && canShift(dest > prev)) {
       cancel();
-      translate(shift(position, dest > index), true);
+      translate(shift(position, dest > prev), true);
     }
     set(MOVING);
     emit(EVENT_MOVE, index, prev, dest);
@@ -1252,7 +1254,7 @@ function Move(Splide2, Components2, options) {
   }
   function canShift(backwards) {
     var shifted = orient(shift(getPosition(), backwards));
-    return backwards ? shifted >= 0 : shifted <= list["scroll" + resolve("Width")] - rect(track)[resolve("width")];
+    return backwards ? shifted >= 0 : shifted <= list[resolve("scrollWidth")] - rect(track)[resolve("width")];
   }
   function exceededLimit(max2, position) {
     position = isUndefined(position) ? getPosition() : position;
@@ -2224,24 +2226,34 @@ function Wheel(Splide2, Components2, options) {
     mount
   };
 }
+var SR_REMOVAL_DELAY = 90;
 function Live(Splide2, Components2, options) {
   var _EventInterface14 = EventInterface(Splide2), on = _EventInterface14.on;
   var track = Components2.Elements.track;
-  var live = options.live;
-  var enabled = live && !options.isNavigation;
+  var enabled = options.live && !options.isNavigation;
   var sr = create("span", CLASS_SR);
+  var interval = RequestInterval(SR_REMOVAL_DELAY, apply(toggle, false));
   function mount() {
     if (enabled) {
       disable(!Components2.Autoplay.isPaused());
-      setAttribute(track, ARIA_RELEVANT, "additions");
+      setAttribute(track, ARIA_ATOMIC, true);
       sr.textContent = "\u2026";
       on(EVENT_AUTOPLAY_PLAY, apply(disable, true));
       on(EVENT_AUTOPLAY_PAUSE, apply(disable, false));
-      on([EVENT_MOVED, EVENT_SCROLLED], apply(append, track, sr));
+      on([EVENT_MOVED, EVENT_SCROLLED], apply(toggle, true));
+    }
+  }
+  function toggle(active) {
+    setAttribute(track, ARIA_BUSY, active);
+    if (active) {
+      append(track, sr);
+      interval.start();
+    } else {
+      remove(sr);
     }
   }
   function destroy() {
-    removeAttribute(track, [ARIA_LIVE, ARIA_RELEVANT]);
+    removeAttribute(track, [ARIA_LIVE, ARIA_ATOMIC, ARIA_BUSY]);
     remove(sr);
   }
   function disable(disabled) {
