@@ -19,7 +19,7 @@ function _createClass(Constructor, protoProps, staticProps) {
 }
 /*!
  * Splide.js
- * Version  : 4.0.6
+ * Version  : 4.0.7
  * License  : MIT
  * Copyright: 2022 Naotoshi Fujita
  */
@@ -841,8 +841,8 @@ function Slide$1(Splide2, index, slideIndex, slide) {
     }
     var trackRect = rect(Components.Elements.track);
     var slideRect = rect(slide);
-    var left = resolve("left");
-    var right = resolve("right");
+    var left = resolve("left", true);
+    var right = resolve("right", true);
     return floor(trackRect[left]) <= ceil(slideRect[left]) && floor(slideRect[right]) <= ceil(trackRect[right]);
   }
   function isWithin(from, distance) {
@@ -1353,7 +1353,7 @@ function Controller(Splide2, Components2, options) {
         snapPage = false;
       }
       if (dest < 0 || dest > end) {
-        if (between(0, dest, from, true) || between(end, from, dest, true)) {
+        if (!perMove && (between(0, dest, from, true) || between(end, from, dest, true))) {
           dest = toIndex(toPage(dest));
         } else {
           if (isLoop) {

@@ -1,6 +1,6 @@
 {
   "name": "@splidejs/vue-splide",
-  "version": "0.6.6",
+  "version": "0.6.7",
   "description": "The Splide component for Vue.",
   "author": "Naotoshi Fujita",
   "license": "MIT",
@@ -60,6 +60,6 @@
     "./css/*": "./dist/css/themes/splide-*.min.css"
   },
   "dependencies": {
-    "@splidejs/splide": "^4.0.6"
+    "@splidejs/splide": "^4.0.7"
   }
 }
