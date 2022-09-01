@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperties(exports, { __esModule: { value: true }, [Symbol.toStringTag]: { value: "Module" } });
-var vue = require("vue");
+const vue = require("vue");
 function _defineProperties(target, props) {
   for (var i = 0; i < props.length; i++) {
     var descriptor = props[i];
@@ -2599,13 +2599,6 @@ function merge(object, source) {
   });
   return merged;
 }
-var _export_sfc = (sfc, props) => {
-  const target = sfc.__vccOpts || sfc;
-  for (const [key, val] of props) {
-    target[key] = val;
-  }
-  return target;
-};
 const _sfc_main$2 = vue.defineComponent({
   name: "SplideTrack",
   setup() {
@@ -2616,6 +2609,13 @@ const _sfc_main$2 = vue.defineComponent({
     });
   }
 });
+const _export_sfc = (sfc, props) => {
+  const target = sfc.__vccOpts || sfc;
+  for (const [key, val] of props) {
+    target[key] = val;
+  }
+  return target;
+};
 const _hoisted_1$1 = { class: "splide__track" };
 const _hoisted_2 = { class: "splide__list" };
 function _sfc_render$2(_ctx, _cache, $props, $setup, $data, $options) {
@@ -2625,7 +2625,7 @@ function _sfc_render$2(_ctx, _cache, $props, $setup, $data, $options) {
     ])
   ]);
 }
-var SplideTrack = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["render", _sfc_render$2]]);
+const SplideTrack = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["render", _sfc_render$2]]);
 const _sfc_main$1 = vue.defineComponent({
   name: "Splide",
   emits: EVENTS.map((event) => `splide:${event}`),
@@ -2716,7 +2716,7 @@ function _sfc_render$1(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   }, 512);
 }
-var Splide = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["render", _sfc_render$1]]);
+const Splide = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["render", _sfc_render$1]]);
 const _sfc_main = vue.defineComponent({
   name: "SplideSlide"
 });
@@ -2726,7 +2726,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     vue.renderSlot(_ctx.$slots, "default")
   ]);
 }
-var SplideSlide = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render]]);
+const SplideSlide = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render]]);
 const VueSplide = {
   install(app) {
     app.component(Splide.name, Splide);
@@ -2736,4 +2736,4 @@ const VueSplide = {
 exports.Splide = Splide;
 exports.SplideSlide = SplideSlide;
 exports.SplideTrack = SplideTrack;
-exports["default"] = VueSplide;
+exports.default = VueSplide;

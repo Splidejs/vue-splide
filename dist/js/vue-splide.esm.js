@@ -2597,13 +2597,6 @@ function merge(object, source) {
   });
   return merged;
 }
-var _export_sfc = (sfc, props) => {
-  const target = sfc.__vccOpts || sfc;
-  for (const [key, val] of props) {
-    target[key] = val;
-  }
-  return target;
-};
 const _sfc_main$2 = defineComponent({
   name: "SplideTrack",
   setup() {
@@ -2614,6 +2607,13 @@ const _sfc_main$2 = defineComponent({
     });
   }
 });
+const _export_sfc = (sfc, props) => {
+  const target = sfc.__vccOpts || sfc;
+  for (const [key, val] of props) {
+    target[key] = val;
+  }
+  return target;
+};
 const _hoisted_1$1 = { class: "splide__track" };
 const _hoisted_2 = { class: "splide__list" };
 function _sfc_render$2(_ctx, _cache, $props, $setup, $data, $options) {
@@ -2623,7 +2623,7 @@ function _sfc_render$2(_ctx, _cache, $props, $setup, $data, $options) {
     ])
   ]);
 }
-var SplideTrack = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["render", _sfc_render$2]]);
+const SplideTrack = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["render", _sfc_render$2]]);
 const _sfc_main$1 = defineComponent({
   name: "Splide",
   emits: EVENTS.map((event) => `splide:${event}`),
@@ -2714,7 +2714,7 @@ function _sfc_render$1(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   }, 512);
 }
-var Splide = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["render", _sfc_render$1]]);
+const Splide = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["render", _sfc_render$1]]);
 const _sfc_main = defineComponent({
   name: "SplideSlide"
 });
@@ -2724,11 +2724,16 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     renderSlot(_ctx.$slots, "default")
   ]);
 }
-var SplideSlide = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render]]);
+const SplideSlide = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render]]);
 const VueSplide = {
   install(app) {
     app.component(Splide.name, Splide);
     app.component(SplideSlide.name, SplideSlide);
   }
 };
-export { Splide, SplideSlide, SplideTrack, VueSplide as default };
+export {
+  Splide,
+  SplideSlide,
+  SplideTrack,
+  VueSplide as default
+};

@@ -3,16 +3,16 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "@splidejs/splide-extension-video": "^0.7.0",
+    "@splidejs/splide-extension-video": "^0.7.1",
     "@splidejs/vue-splide": "file:..",
-    "vue": "^3.2.31"
+    "vue": "^3.2.38"
   },
   "devDependencies": {
-    "@types/node": "^17.0.23",
-    "@vitejs/plugin-vue": "^2.3.1",
-    "typescript": "^4.6.3",
-    "vite": "^2.9.1",
-    "vue-tsc": "^0.33.9"
+    "@types/node": "^18.7.14",
+    "@vitejs/plugin-vue": "^3.0.3",
+    "typescript": "^4.8.2",
+    "vite": "^3.0.9",
+    "vue-tsc": "^0.40.5"
   },
   "scripts": {
     "develop": "vite",
