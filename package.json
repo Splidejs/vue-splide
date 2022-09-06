@@ -1,6 +1,6 @@
 {
   "name": "@splidejs/vue-splide",
-  "version": "0.6.8",
+  "version": "0.6.9",
   "description": "The Splide component for Vue.",
   "author": "Naotoshi Fujita",
   "license": "MIT",
@@ -26,19 +26,19 @@
   },
   "devDependencies": {
     "@types/jest": "^29.0.0",
-    "@typescript-eslint/eslint-plugin": "^5.36.1",
-    "@typescript-eslint/parser": "^5.36.1",
-    "@vitejs/plugin-vue": "^3.0.3",
+    "@typescript-eslint/eslint-plugin": "^5.36.2",
+    "@typescript-eslint/parser": "^5.36.2",
+    "@vitejs/plugin-vue": "^3.1.0",
     "eslint": "^8.23.0",
     "eslint-plugin-vue": "^9.4.0",
     "fs-extra": "^10.1.0",
     "gh-pages": "^4.0.0",
-    "jest": "^29.0.1",
-    "ts-jest": "^28.0.8",
+    "jest": "^29.0.2",
+    "ts-jest": "next",
     "typescript": "^4.8.2",
-    "vite": "^3.0.9",
+    "vite": "^3.1.0",
     "vue": "^3.2.38",
-    "vue-tsc": "^0.40.5"
+    "vue-tsc": "^0.40.9"
   },
   "scripts": {
     "develop": "vite build",
@@ -60,6 +60,6 @@
     "./css/*": "./dist/css/themes/splide-*.min.css"
   },
   "dependencies": {
-    "@splidejs/splide": "^4.0.15"
+    "@splidejs/splide": "^4.0.16"
   }
 }
