@@ -1,16 +1,22 @@
 <template>
-  <component :is="tag" class="splide" ref="root">
+  <component
+    :is="tag"
+    ref="root"
+    class="splide"
+  >
     <SplideTrack v-if="hasTrack">
-      <slot></slot>
+      <slot />
     </SplideTrack>
 
-    <slot v-else></slot>
+    <slot v-else />
   </component>
 </template>
 
 <script lang="ts">
-import { ComponentConstructor, Options, Splide } from '@splidejs/splide';
-import { computed, defineComponent, onBeforeUnmount, onMounted, PropType, provide, Ref, ref, watch } from 'vue';
+import type { ComponentConstructor, Options } from '@splidejs/splide';
+import { Splide } from '@splidejs/splide';
+import type { PropType, Ref } from 'vue';
+import { computed, defineComponent, onBeforeUnmount, onMounted, provide, ref, watch } from 'vue';
 import { EVENTS } from '../../constants/events';
 import { SPLIDE_INJECTION_KEY } from '../../constants/keys';
 import { merge } from '../../utils';
@@ -139,7 +145,7 @@ export default defineComponent( {
       length,
       go,
       sync,
-    }
+    };
   },
 } );
 </script>

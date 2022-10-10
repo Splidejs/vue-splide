@@ -1,20 +1,28 @@
 {
   "extends": [
     "eslint:recommended",
+    "@vue/eslint-config-typescript",
     "plugin:@typescript-eslint/recommended",
     "plugin:vue/vue3-recommended"
   ],
   "plugins": [
     "@typescript-eslint"
   ],
-  "parser": "@typescript-eslint/parser",
+  "parser": "vue-eslint-parser",
   "parserOptions": {
-    "ecmaVersion": 2018,
+    "parset": "@typescript-eslint/parser",
+    "ecmaVersion": "latest",
     "sourceType": "module"
   },
   "env": {
     "browser": true
   },
+  "overrides": [
+    {
+        "files": ["*.ts"],
+        "parser": "@typescript-eslint/parser"
+    }
+  ],
   "ignorePatterns": [
     "*.esm.js"
   ],
@@ -109,6 +117,8 @@
           "object": false
         }
       }
-    ]
+    ],
+    "@typescript-eslint/consistent-type-imports": "error",
+    "vue/multi-word-component-names": "off"
   }
 }
