@@ -1,15 +1,16 @@
 <template>
   <div class="splide__track">
     <ul class="splide__list">
-      <slot></slot>
+      <slot />
     </ul>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, onUpdated, inject, Ref } from 'vue';
+import type { Ref } from 'vue';
+import { defineComponent, onUpdated, inject } from 'vue';
 import { SPLIDE_INJECTION_KEY } from '../../constants/keys';
-import { Splide } from '@splidejs/splide';
+import type { Splide } from '@splidejs/splide';
 
 /**
  * The component for the Splide track element.
@@ -24,6 +25,6 @@ export default defineComponent( {
       const splide = inject<Ref<Splide | undefined>>( SPLIDE_INJECTION_KEY );
       splide?.value?.refresh();
     } );
-  }
+  },
 } );
 </script>

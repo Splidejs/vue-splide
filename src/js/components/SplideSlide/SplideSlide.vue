@@ -1,6 +1,6 @@
 <template>
   <li class="splide__slide">
-    <slot></slot>
+    <slot />
   </li>
 </template>
 
