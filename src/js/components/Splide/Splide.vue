@@ -10,7 +10,7 @@
 
 <script lang="ts">
 import { ComponentConstructor, Options, Splide } from '@splidejs/splide';
-import { computed, defineComponent, onBeforeUnmount, onMounted, PropType, provide, Ref, ref, watch } from 'vue';
+import { computed, defineComponent, onUnmounted, onMounted, PropType, provide, Ref, ref, watch } from 'vue';
 import { EVENTS } from '../../constants/events';
 import { SPLIDE_INJECTION_KEY } from '../../constants/keys';
 import { merge } from '../../utils';
@@ -75,8 +75,20 @@ export default defineComponent( {
       }
     } );
 
-    onBeforeUnmount( () => {
-      splide.value?.destroy();
+    onUnmounted( () => {
+      if (splide.value) {
+        try {
+          const observer = new MutationObserver(() => {
+            if (!document.body.contains(splide.value?.root as HTMLElement)) {
+              splide.value?.destroy();
+              observer.disconnect();
+            }
+          });
+          observer.observe(document.body, { childList: true, subtree: true });
+        } catch (e) {
+          console.log(e);
+        }
+      }
     } );
 
     watch( () => merge( {}, props.options ), options => {
