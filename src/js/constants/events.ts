@@ -26,8 +26,8 @@ import {
   EVENT_SCROLLED,
   EVENT_UPDATED,
   EVENT_VISIBLE,
-  EventMap,
 } from '@splidejs/splide';
+import type { EventMap } from '@splidejs/splide';
 
 
 export const EVENTS: Array<keyof EventMap> = [
