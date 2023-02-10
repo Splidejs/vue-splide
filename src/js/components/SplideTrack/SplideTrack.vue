@@ -10,7 +10,7 @@
 import { defineComponent, onUpdated, inject } from 'vue';
 import type { Ref } from 'vue';
 import { SPLIDE_INJECTION_KEY } from '../../constants/keys';
-import { Splide } from '@splidejs/splide';
+import type { Splide } from '@splidejs/splide';
 
 /**
  * The component for the Splide track element.
