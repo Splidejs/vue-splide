@@ -9,8 +9,8 @@
 </template>
 
 <script lang="ts">
-import { ComponentConstructor, Options, Splide } from '@splidejs/splide';
-import { computed, defineComponent, onBeforeUnmount, onMounted, PropType, provide, Ref, ref, watch } from 'vue';
+import { type ComponentConstructor, type Options, Splide } from '@splidejs/splide';
+import { computed, defineComponent, onBeforeUnmount, onMounted, type PropType, provide, type Ref, ref, watch } from 'vue';
 import { EVENTS } from '../../constants/events';
 import { SPLIDE_INJECTION_KEY } from '../../constants/keys';
 import { merge } from '../../utils';

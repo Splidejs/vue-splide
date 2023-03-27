@@ -26,7 +26,7 @@ import {
   EVENT_SCROLLED,
   EVENT_UPDATED,
   EVENT_VISIBLE,
-  EventMap,
+  type EventMap,
 } from '@splidejs/splide';
 
 
