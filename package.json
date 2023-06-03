@@ -1,6 +1,6 @@
 {
   "name": "@splidejs/vue-splide",
-  "version": "0.6.12",
+  "version": "0.6.13",
   "description": "The Splide component for Vue.",
   "author": "Naotoshi Fujita",
   "license": "MIT",
@@ -51,6 +51,7 @@
   },
   "exports": {
     ".": {
+      "types": "./src/js/index.ts",
       "require": "./dist/js/vue-splide.cjs.js",
       "import": "./dist/js/vue-splide.esm.js",
       "default": "./dist/js/vue-splide.esm.js"
