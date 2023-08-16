@@ -36,7 +36,7 @@ export function merge<T extends object, U extends object>( object: T, source: U 
 
   forOwn( source, ( value, key ) => {
     if ( Array.isArray( value ) ) {
-      merged[ key ] = value.slice();
+      merged[ key ] = (value as []).slice();
     } else if ( isObject( value ) ) {
       merged[ key ] = merge( isObject( merged[ key ] ) ? merged[ key ] : {}, value );
     } else {
