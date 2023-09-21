@@ -2689,8 +2689,10 @@ const _sfc_main$1 = vue.defineComponent({
       }
     });
     vue.onBeforeUnmount(() => {
-      var _a;
-      (_a = splide.value) == null ? void 0 : _a.destroy();
+      setTimeout(() => {
+        var _a;
+        (_a = splide.value) == null ? void 0 : _a.destroy();
+      }, props.options.destroyDelay || 0);
     });
     vue.watch(() => merge({}, props.options), (options) => {
       if (splide.value) {

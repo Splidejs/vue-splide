@@ -76,7 +76,9 @@ export default defineComponent( {
     } );
 
     onBeforeUnmount( () => {
-      splide.value?.destroy();
+      setTimeout(() => {
+        splide.value?.destroy();
+      }, props.options.destroyDelay || 0);
     } );
 
     watch( () => merge( {}, props.options ), options => {
