@@ -44,24 +44,32 @@ export default defineComponent( {
     const slides = generateSlides();
 
     const mainOptions: Options = {
-      type      : 'loop',
-      perPage   : 2,
-      perMove   : 1,
-      gap       : '1rem',
-      pagination: false,
+      type       : 'fade',
+      heightRatio: 0.5,
+      pagination : false,
+      arrows     : false,
+      cover      : true,
     };
 
     const thumbsOptions: Options = {
-      type        : 'slide',
-      rewind      : true,
-      gap         : '1rem',
-      pagination  : false,
-      fixedWidth  : 110,
-      fixedHeight : 70,
-      cover       : true,
-      focus       : 'center',
-      isNavigation: true,
-      updateOnMove: true,
+      rewind          : true,
+      fixedWidth      : 104,
+      fixedHeight     : 58,
+      isNavigation    : true,
+      gap             : 10,
+      focus           : 'center',
+      pagination      : false,
+      cover           : true,
+      dragMinThreshold: {
+        mouse: 4,
+        touch: 10,
+      },
+      breakpoints : {
+        640: {
+          fixedWidth  : 66,
+          fixedHeight : 38,
+        },
+      },
     };
 
     onMounted( () => {
